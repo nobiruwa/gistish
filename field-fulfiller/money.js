@@ -1,34 +1,70 @@
-// module Money where
+/*global module:false, require:false*/
 
-// data MoneyChar = Neg
-//                | One
-//                | Zero
-//                | Period
-//                deriving (Eq)
+const NEGATIVE = "-",
+      ONE = "1",
+      ZERO = "0",
+      PERIOD = ".";
 
-// instance Show MoneyChar where
-//   show Neg = "-"
-//   show One = "1"
-//   show Zero = "0"
-//   show Period = "."
+var generateMoney, generateInteger, replicate;
 
-// showMoneyChars :: [MoneyChar] -> String
-// showMoneyChars = concat . map show
+generateMoney = function(config) {
+  if (config.length <= 2) {
+    // 桁が少ないので、整数を作成する
+    return generateInteger(config.isNegative, config.length).join("");
+  } else if (config.decimalPartLength <= 0) {
+    // 整数を作成する
+    return generateInteger(config.isNegative, config.length).join("");
+  } else if (config.length - config.decimalPartLength <= 1) {
+    // 小数点部から整数部へ1桁移す
+    return generateInteger(
+      config.isNegative,
+      config.length - config.decimalPartLength
+    ).concat(
+      [PERIOD]
+    ).concat(
+      replicate(config.decimalPartLength - 1, ONE)
+    ).join("");
+  } else {
+    // 小数点に1桁消費し、残りを整数部と小数部で消費する
+    return generateInteger(
+      config.isNegative,
+      config.length - config.decimalPartLength - 1
+    ).concat(
+      [PERIOD]
+    ).concat(
+      replicate(config.decimalPartLength, ONE)
+    ).join("");
+  }
+};
 
-// data Decimal = Decimal Int -- 少数点部の桁数
+generateInteger = function(isNegative, length) {
+  if (length <= 0) {
+    return [];
+  } else if (length == 1) {
+    return [ONE];
+  } else if (isNegative) {
+    return [NEGATIVE, ONE].concat(replicate(length - 2, ZERO));
+  } else {
+    return [ONE].concat(replicate(length - 1, ZERO));
+  }
+};
 
-// data MoneyField = MoneyField
-//   { moneyIsNegative :: Bool
-//   , decimalPartLength :: Int
-//   , moneyLength :: Int
-//   } deriving (Eq, Show)
+replicate = function(length, element) {
+  var arr = [];
 
-// generateMoneyValue :: MoneyField -> [MoneyChar]
-// generateMoneyValue (MoneyField neg 0 len) = generateInteger neg len
-// generateMoneyValue (MoneyField neg decLen len) = generateInteger neg (len - decLen - 1) ++ [Period] ++ replicate decLen Zero
+  for(var i = 0; i < length; i++) {
+    arr.push(element);
+  }
+  return arr;
+};
 
-// generateInteger :: Bool -> Int -> [MoneyChar]
-// generateInteger _ 0 = []
-// generateInteger _ 1 = [Zero]
-// generateInteger True len = Neg : One : replicate (len - 2) Zero
-// generateInteger False len = One : replicate (len - 1) Zero
+module.exports = {
+  generate: generateMoney
+};
+
+/**
+ * @typedef MoneyConfig
+ * @prop {Boolean} isNegative
+ * @prop {number} decimalPartLength
+ * @prop {number} length
+ */
