@@ -1,0 +1,15 @@
+{
+  "name": "field-fulfiller",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "jsdoc": "./node_modules/.bin/jsdoc -c jsdoc.conf.json *.js"
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^4.12.1",
+    "jsdoc": "^3.5.5"
+  }
+}
