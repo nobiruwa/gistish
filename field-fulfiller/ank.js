@@ -7,7 +7,7 @@ var generateANK, generateANKHelper, generateA;
  * @param {ANKConfig} config
  */
 generateANK = function(config) {
-  return generateANKHelper(config);
+  return generateANKHelper(config).join("");
 };
 
 generateANKHelper = function(config, i = 0) {
@@ -23,9 +23,9 @@ generateANKHelper = function(config, i = 0) {
   if (i % 3 == 0) {
     return [generateA(config.A, config.hasSmallA)].concat(generateANKHelper(newConfig, i + 1));
   } else if (i % 3 == 1) {
-    return [config.N].concat(generateANKHelper(config.length - 1, i + 1));
+    return [config.N].concat(generateANKHelper(newConfig, i + 1));
   } else  {
-    return [config.K].concat(generateANKHelper(config.length - 1, i + 1));
+    return [config.K].concat(generateANKHelper(newConfig, i + 1));
   }
 };
 

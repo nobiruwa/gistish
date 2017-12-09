@@ -15,6 +15,7 @@ generateMoney = function(config) {
     // 整数を作成する
     return generateInteger(config.isNegative, config.length).join("");
   } else if (config.length - config.decimalPartLength <= 1) {
+    // 整数部も小数部も最低1桁は消費する
     // 小数点部から整数部へ1桁移す
     return generateInteger(
       config.isNegative,
@@ -41,6 +42,7 @@ generateInteger = function(isNegative, length) {
   if (length <= 0) {
     return [];
   } else if (length == 1) {
+    // 桁が少ないので、負数入力可であっても正数を作る
     return [ONE];
   } else if (isNegative) {
     return [NEGATIVE, ONE].concat(replicate(length - 2, ZERO));
@@ -64,7 +66,7 @@ module.exports = {
 
 /**
  * @typedef MoneyConfig
- * @prop {Boolean} isNegative
+ * @prop {boolean} isNegative
  * @prop {number} decimalPartLength
  * @prop {number} length
  */
