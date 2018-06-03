@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <script src="node_modules/textarea-caret/index.js"></script>
+    <script src="textarea-position.js"></script>
+    <script src="textarea-caret.js"></script>
+    <style type="text/css" media="screen">
+     .pseudo-caret {
+       border-left-color: red;
+       width: 2px;
+       z-index: 1000000;
+     }
+     .pseudo-caret:after {
+       content: "|";
+     }
+     .pseudo-caret-parent {
+       position: relative;
+     }
+     .textarea-caret-parent {
+       position: relative;
+     }
+    </style>
+  </head>
+  <body>
+    <div class="pseudo-caret-parent">
+      <textarea name="" id="original" rows="" cols="" tabindex=""></textarea>
+    </div>
+    <div class="textarea-caret-parent">
+      <textarea id="original2" cols="30" id="" name="" rows="10"></textarea>
+    </div>
+  </body>
+</html>
