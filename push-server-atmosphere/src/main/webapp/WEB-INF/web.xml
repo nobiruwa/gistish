@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+         version="3.0">
+
+  <listener>
+    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+  </listener>
+  <!-- https://github.com/Atmosphere/atmosphere/wiki/Configuring-Atmosphere-as-a-Spring-Bean -->
+  <servlet>
+    <servlet-name>AtmosphereServlet</servlet-name>
+    <servlet-class>org.atmosphere.spring.bean.AtmosphereSpringServlet</servlet-class>
+    <async-supported>true</async-supported>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>AtmosphereServlet</servlet-name>
+    <url-pattern>/chat</url-pattern>
+  </servlet-mapping>
+</web-app>
+
