@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+    <script src="node_modules/jquery/dist/jquery.js"></script>
+    <script src="node_modules/cometd/cometd.js"></script>
+    <script src="node_modules/cometd/ReloadExtension.js"></script>
+    <script src="01-connection-establishment.js"></script>
+  </head>
+  <body>
+    <h1>通信確立のテスト</h1>
+    <div>
+      <h2>チャットルーム参加情報</h2>
+      <form id="participation-form" action="#">
+        <datalist id="transport">
+          <option value="websocket"/>
+          <option value="long-polling"/>
+          <option value="callback-polling"/>
+        </datalist>
+        <div>
+          <label for="">パス</label>
+          <input name="path" type="text" value="" pattern="\/[\-0-9a-z]+" placeholder="/push-server-cometd/cometd"/>
+        </div>
+        <div>
+          <label for="">トランスポート</label>
+          <input name="transport" type="text" value="" pattern="[\-0-9a-z]+" autocomplete="on" list="transport" placeholser="websocket or long-polling or callback-polling"/>
+        </div>
+        <div>
+          <label for="">フォールバック用トランスポート</label>
+          <input name="fallback-transport" type="text" value="" pattern="[\-0-9a-z]+" autocomplete="on" list="transport" placeholser="websocket or long-polling or callback-polling"/>
+        </div>
+        <div>
+          <label for="">ユーザー名</label>
+          <input name="user" type="text" value="" pattern="[0-9a-z]+" placeholder="半角数字と半角英字" />
+        </div>
+        <div>
+          <label for="">ルームパス</label>
+          <input name="room" type="text" value="" pattern="\/[\/0-9a-z]+" placeholder="ex: /chat/room01" />
+        </div>
+      </form>
+    </div>
+    <div>
+      <h2>通信確立状態ログ</h2>
+      <div>
+        <ol id="log"></ol>
+      </div>
+    </div>
+  </body>
+</html>
