@@ -1,0 +1,7 @@
+{
+  "hostURL": "http://localhost:8080/push-server-atmosphere/chat",
+  "transport": "streaming",
+  "author": "ichiro",
+  "message": "heeleoe",
+  "interval": 1000
+}

@@ -11,31 +11,22 @@
 
 "use strict";
 
+const fs = require('fs');
 const process = require('process');
 // npm install atmosphere.js
 const atmosphere = require('atmosphere.js');
 
-const USAGE = 'node chat-client.js ATMOSHPERE_SERVICE_URL AUTH_USER AUTH_PASSWORD TRANSPORT_NAME YOUR_NAME INTERVAL MESSAGE';
+const USAGE = 'node chat-client.js --infile CONFIG_JSON_PATH';
 const TRANSPORT_NAMES = ["websocket", "sse", "long-polling", "streaming", "ajax", "jsonp"];
 
 var hostURL = 'http://localhost:8080/push-server-atmosphere/chat';
 
 function parseArgument() {
-  if (process.argv.length !== 5) {
+  if (process.argv.length !== 4) {
     throw USAGE;
   }
 
-  return {
-    hostURL: process.argv[2],
-    headers: [
-      'Authorization: Basic ' + Buffer.from(process.argv[3] + ':' + process.argv[4]).toString('base64')
-    ],
-    withCredentials: true,
-    transport : process.argv[5],
-    author: process.argv[6],
-    interval: parseInt(process.argv[7]),
-    message: process.argv[8]
-  };
+  return JSON.parse(fs.readFileSync(process.argv[3]));
 }
 
 function createRequest(arg) {
@@ -58,6 +49,7 @@ function createRequest(arg) {
     var message = response.responseBody;
     try {
       var json = JSON.parse(message);
+      console.log(message);
     } catch (e) {
       console.log('Invalid response: ', message);
       return;
@@ -65,7 +57,7 @@ function createRequest(arg) {
     if (json.author == json.message) {
       console.log(json.author + " joined the room");
     } else {
-      console.log(json.author + " says '" + json.message + "'");
+      console.log(json.author + " says '" + json.text + "'");
     }
   };
 
@@ -99,7 +91,7 @@ function main() {
   const args = parseArgument();
   const request = createRequest(args);
   const socket = createAtmosphere(request);
-
+  console.log(args);
   setTimeout(() => socket.push(atmosphere.util.stringifyJSON({ author: args.author, message: args.message })),
              args.interval);
 }
