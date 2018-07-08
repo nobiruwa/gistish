@@ -8,13 +8,15 @@
     <script src="textarea-position.js"></script>
     <script src="textarea-caret.js"></script>
     <style type="text/css" media="screen">
-     .pseudo-caret {
-       border-left-color: red;
-       width: 2px;
-       z-index: 1000000;
+     .ui-keyboard-caret {
+       background:#c00;
+       width:1px;
+       margin-top:3px;
      }
-     .pseudo-caret:after {
-       content: "|";
+     .pseudo-caret {
+       background:#c00;
+       width: 1px;
+       margin-top: 3px;
      }
      .pseudo-caret-parent {
        position: relative;
@@ -22,14 +24,35 @@
      .textarea-caret-parent {
        position: relative;
      }
+     .ui-keyboard-container {
+       position:absolute;
+       visibility: hidden;
+       top: -9999em;
+       left: -9999em;
+       white-space: pre-wrap;
+       z-index: -10;
+     }
+     .ui-keyboard-container.debug {
+       position: relative;
+       visibility: visible;
+       top: 0;
+       left: 0;
+       z-index: 0;
+     }
     </style>
   </head>
   <body>
     <div class="pseudo-caret-parent">
-      <textarea name="" id="original" rows="" cols="" tabindex=""></textarea>
+      <textarea name="" class="original" rows="" cols="" tabindex=""></textarea>
+    </div>
+    <div class="pseudo-caret-parent">
+      <textarea style="text-align:right;" name="" class="original" rows="" cols="" tabindex=""></textarea>
     </div>
     <div class="textarea-caret-parent">
-      <textarea id="original2" cols="30" id="" name="" rows="10"></textarea>
+      <textarea class="original2" cols="30" id="" name="" rows="10"></textarea>
+    </div>
+    <div class="textarea-caret-parent">
+      <textarea style="text-align:right;" class="original2" cols="30" id="" name="" rows="10"></textarea>
     </div>
   </body>
 </html>

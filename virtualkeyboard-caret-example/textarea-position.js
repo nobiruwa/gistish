@@ -41,15 +41,19 @@
     'MozTabSize'
   ];
 
-  function createMeasureBlock() {
+  function createMeasureBlock(debug) {
     var container = document.createElement("div"),
         textContainer = document.createElement("span"),
         caretPosition = document.createElement("span");
 
     // indentifiers
-    container.setAttribute("class", ["container"].join(" "));
-    textContainer.setAttribute("class", ["text-container"].join(" "));
-    caretPosition.setAttribute("class", ["caret-position"].join(" "));
+    container.setAttribute("class",
+                           [
+                             "ui-keyboard-container",
+                             debug ? "debug" : ""
+                           ].join(" "));
+    textContainer.setAttribute("class", ["ui-keyboard-text-container"].join(" "));
+    caretPosition.setAttribute("class", ["ui-keyboard-caret-position"].join(" "));
 
     // constructuring
     container.appendChild(textContainer);
@@ -85,8 +89,6 @@
       container.style.overflow = 'hidden';  // for Chrome to not render a scrollbar; IE keeps overflowY = 'scroll'
     }
 
-    container.style.position = "absolute";
-
     // Default textarea styles
     textContainer.style.whiteSpace = 'pre-wrap';
     if (!isInput) {
@@ -95,10 +97,14 @@
 
     // attributes for visualisation
     if (debug) {
+      container.style.position = "relative";
+      container.classList.add("debug");
       container.style.border = "1px black dotted";
       textContainer.style.backgroundColor = "#F0F8FF";
       caretPosition.innerHTML = "";
     } else {
+      container.style.position = "absolute";
+      container.classList.remove("debug");
       container.style.border = "";
       textContainer.style.backgroundColor = "";
       caretPosition.innerHTML = "";
@@ -112,15 +118,19 @@
   function updateText(original, measureBlock) {
     var position = lookupCaretPosition(original),
         textContent = original.value.substring(0, position) || "&#x200B",
-        textContainer = measureBlock.textContainer;
+        computed = window.getComputedStyle(original),
+        restContent = original.value.substring(position) || (computed['textAlign'] === 'right' ? "&#x200B" : '.'),  // || because a completely empty faux span doesn't render at all
+        textContainer = measureBlock.textContainer,
+        caretPosition = measureBlock.caretPosition;
 
     textContainer.innerHTML = textContent;
+    caretPosition.innerHTML = restContent;
   }
 
-  function createPseudoCaret() {
+  function createPseudoCaret(className="ui-keyboard-caret") {
     var caret = document.createElement("div");
 
-    caret.setAttribute("class", "pseudo-caret");
+    caret.setAttribute("class", className);
     caret.style.position = "absolute";
 
     return caret;
@@ -134,7 +144,6 @@
     pseudoCaret.style.left = position.left + "px";
     pseudoCaret.style.top = position.top + "px";
     pseudoCaret.style.height = position.height + "px";
-
   }
 
   function getCaretPosition(original, measureBlock) {
@@ -142,6 +151,7 @@
         computed = window.getComputedStyle(original);
     return {
       top: caretPosition.offsetTop + parseInt(computed['borderTopWidth']),
+      textAlign: computed['textAlign'],
       left: caretPosition.offsetLeft + parseInt(computed['borderLeftWidth']),
       height: parseInt(computed['lineHeight']),
       selectionStart: original.selectionStart,
@@ -149,25 +159,52 @@
     };
   }
 
+  function removePseudoCaret(target) {
+    var pseudoCaret = pseudoCaretOn.pseudoCaret;
+
+    if (pseudoCaret && target.parentNode === pseudoCaret.parentNode) {
+      pseudoCaret.parentNode.removeChild(pseudoCaret);
+    }
+  }
+
+  function attachPseudoCaret(target, debug) {
+    var measureBlock;
+    if (!attachPseudoCaret.measureBlock) {
+      measureBlock = createMeasureBlock(debug);
+      attachPseudoCaret.measureBlock = measureBlock;
+      document.body.appendChild(measureBlock.container);
+    } else {
+      measureBlock = attachPseudoCaret.measureBlock;
+    }
+
+    target.addEventListener("focus", () => {
+      cloneAttributes(target, measureBlock);
+      updateText(target, measureBlock);
+      ignoreOriginalAttributes(target, measureBlock, debug);
+      pseudoCaretOn(target, getCaretPosition(target, measureBlock));
+    });
+
+    target.addEventListener("blur", () => {
+      removePseudoCaret(target);
+    });
+
+    target.addEventListener("keyup", () => {
+      cloneAttributes(target, measureBlock);
+      ignoreOriginalAttributes(target, measureBlock, debug);
+      updateText(target, measureBlock);
+      pseudoCaretOn(target, getCaretPosition(target, measureBlock));
+    });
+
+    target.addEventListener("input", () => {
+      cloneAttributes(target, measureBlock);
+      ignoreOriginalAttributes(target, measureBlock, debug);
+      updateText(target, measureBlock);
+      pseudoCaretOn(target, getCaretPosition(target, measureBlock));
+    });
+  }
+
   window.addEventListener("load", () => {
-    var original = document.querySelector("#original"),
-        measureBlock = createMeasureBlock();
-
-    document.body.appendChild(measureBlock.container);
-    cloneAttributes(original, measureBlock);
-    ignoreOriginalAttributes(original, measureBlock, true);
-
-    original.addEventListener("keyup", () => {
-      cloneAttributes(original, measureBlock);
-      ignoreOriginalAttributes(original, measureBlock, true);
-      updateText(original, measureBlock);
-      pseudoCaretOn(original, getCaretPosition(original, measureBlock));
-    });
-    original.addEventListener("input", () => {
-      cloneAttributes(original, measureBlock);
-      ignoreOriginalAttributes(original, measureBlock, true);
-      updateText(original, measureBlock);
-      pseudoCaretOn(original, getCaretPosition(original, measureBlock));
-    });
+    var originals = document.querySelectorAll(".original");
+    originals.forEach((node) => attachPseudoCaret(node, true));
   });
 })(window, document);
