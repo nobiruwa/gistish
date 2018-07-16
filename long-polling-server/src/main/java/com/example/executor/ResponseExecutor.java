@@ -13,6 +13,7 @@ import javax.enterprise.context.Initialized;
 import javax.enterprise.event.Observes;
 import javax.inject.Inject;
 import javax.servlet.AsyncContext;
+import javax.servlet.ServletResponse;
 
 // TODO どこまでをsynchronizedで囲むべきか？コネクションアクセスに関するよりよい排他方式は何か？
 // TODO AsyncContextにアクセスしたとき例外をどう処理すべきか？
@@ -90,7 +91,8 @@ public class ResponseExecutor {
                 SessionContainer sessionContainer = this.sessionCloak.checkout();
                 if (sessionContainer.containsKey(this.key)) {
                     AsyncContext ctx = sessionContainer.get(this.key);
-                    PrintWriter writer = ctx.getResponse().getWriter();
+                    ServletResponse response = ctx.getResponse();
+                    PrintWriter writer = response.getWriter();
                     try {
                         writer.println(this.message);
                     } finally {
