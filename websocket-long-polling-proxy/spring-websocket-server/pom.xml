@@ -6,20 +6,10 @@
 
   <!-- The Basics -->
   <groupId>com.example</groupId>
-  <artifactId>spring-websocket-sample</artifactId>
+  <artifactId>spring-websocket-server</artifactId>
   <version>0.0.1</version>
   <packaging>war</packaging>
   <dependencies>
-    <!-- <dependency> -->
-    <!--   <groupId>org.springframework</groupId> -->
-    <!--   <artifactId>spring-core</artifactId> -->
-    <!--   <version>4.3.2.RELEASE</version> -->
-    <!-- </dependency> -->
-    <!-- <dependency> -->
-    <!--   <groupId>org.springframework</groupId> -->
-    <!--   <artifactId>spring-context</artifactId> -->
-    <!--   <version>4.3.2.RELEASE</version> -->
-    <!-- </dependency> -->
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-webmvc</artifactId>
@@ -30,15 +20,16 @@
       <artifactId>spring-websocket</artifactId>
       <version>4.3.2.RELEASE</version>
     </dependency>
-    <!-- <dependency> -->
-    <!--   <groupId>org.springframework</groupId> -->
-    <!--   <artifactId>spring-messaging</artifactId> -->
-    <!--   <version>4.3.2.RELEASE</version> -->
-    <!-- </dependency> -->
     <dependency>
-      <groupId>javax.servlet</groupId>
-      <artifactId>javax.servlet-api</artifactId>
-      <version>3.0.1</version>
+      <groupId>javax</groupId>
+      <artifactId>javaee-api</artifactId>
+      <version>7.0</version>
+      <scope>provided</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.glassfish.tyrus</groupId>
+      <artifactId>tyrus-server</artifactId>
+      <version>1.12</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
@@ -67,7 +58,7 @@
   </build>
 
   <!-- More Project Information -->
-  <name>spring-websocket-sample</name>
+  <name>spring-websocket-server</name>
 
   <!-- Environment Settings -->
   <repositories>

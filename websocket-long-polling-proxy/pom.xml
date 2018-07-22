@@ -24,7 +24,7 @@
   </dependencies>
   <modules>
     <module>websocket-proxy-interface</module>
-    <module>spring-websocket-sample</module>
+    <module>spring-websocket-server</module>
     <module>javaee-long-polling-server</module>
     <module>spring-long-polling-server</module>
   </modules>

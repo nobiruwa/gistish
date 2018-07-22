@@ -3,7 +3,7 @@ package com.example;
 import com.example.servlet.ServletConfig;
 import com.example.websocket.WebSocketConfig;
 
-import javax.servlet.ServletContext;
+//import javax.servlet.ServletContext;
 import org.springframework.web.WebApplicationInitializer;
 import org.springframework.web.context.support.AnnotationConfigWebApplicationContext;
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;

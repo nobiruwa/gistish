@@ -6,7 +6,7 @@
 
   <!-- The Basics -->
   <groupId>com.example</groupId>
-  <artifactId>long-polling-server</artifactId>
+  <artifactId>javaee-long-polling-server</artifactId>
   <version>0.0.1</version>
   <packaging>war</packaging>
   <dependencies>
@@ -52,7 +52,7 @@
   </build>
 
   <!-- More Project Information -->
-  <name>long-polling-server</name>
+  <name>javaee-long-polling-server</name>
 
   <!-- Environment Settings -->
   <repositories>
