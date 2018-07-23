@@ -12,33 +12,32 @@ import org.springframework.web.socket.WebSocketSession;
 import org.springframework.web.socket.handler.TextWebSocketHandler;
 
 public class WebSocketServer extends TextWebSocketHandler {
-    private static final Logger logger = Logger.getLogger(WebSocketServer.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(WebSocketServer.class.getName());
     @Autowired
     private SessionHandler sessionHandler;
 
     public WebSocketServer() {
-        logger.log(Level.INFO, null, this.sessionHandler == null);
     }
 
     @Override
     public void afterConnectionEstablished(WebSocketSession session) throws Exception {
-        System.out.println("WebSocketServer#afterConnectionEstablished() get a new client.");
+        LOGGER.info("WebSocketServer#afterConnectionEstablished() get a new client.");
         this.sessionHandler.addSession(session);
     }
 
     @Override
     public void afterConnectionClosed(WebSocketSession session, CloseStatus status) throws Exception {
+        LOGGER.info("WebSocketServer#afterConnectionClosed() lost a client.");
         this.sessionHandler.removeSession(session);
     }
 
     @Override
     protected void handleTextMessage(WebSocketSession session, TextMessage message) {
-        this.logger.log(Level.INFO, null, this.sessionHandler == null);
     }
 
     @Override
     public void handleTransportError(WebSocketSession session, Throwable exception) {
-        System.out.println("WebSocketServer#handleTransportError()");
+        LOGGER.info("WebSocketServer#handleTransportError()");
         exception.printStackTrace();
     }
 }

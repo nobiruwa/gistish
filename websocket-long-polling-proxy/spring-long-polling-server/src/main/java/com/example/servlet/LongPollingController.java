@@ -18,17 +18,21 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.context.request.async.DeferredResult;
 import org.springframework.scheduling.annotation.Async;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 @RestController
-public class MessageServlet {
+public class LongPollingController {
     @Autowired
     private ResponseExecutor responseExecutor;
     private ObjectMapper mapper = new ObjectMapper();
+    private static final Logger LOGGER = Logger.getLogger(LongPollingController.class.getName());
 
     @Async
     @CrossOrigin(origins="*")
     @RequestMapping(value="/subscribe", method=RequestMethod.GET)
     protected DeferredResult<ResponseEntity<String>> subscribe(@RequestParam String key) {
-        System.out.println("MessageServlet#subscribe(" + key + ")");
+        LOGGER.info("LongPollingController#subscribe(" + key + ")");
         DeferredResult<ResponseEntity<String>> result = new DeferredResult<ResponseEntity<String>>();
         result.onTimeout(() -> {
                 responseExecutor.remove(key);

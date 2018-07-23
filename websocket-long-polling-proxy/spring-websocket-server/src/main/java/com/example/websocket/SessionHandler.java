@@ -21,7 +21,7 @@ import org.springframework.web.socket.TextMessage;
 public class SessionHandler {
     private final ObjectMapper mapper = new ObjectMapper();
     private final Set<WebSocketSession> sessions = new HashSet<>();
-    private static final Logger logger = Logger.getLogger(SessionHandler.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(SessionHandler.class.getName());
 
     public SessionHandler() {
     }
@@ -35,7 +35,7 @@ public class SessionHandler {
     }
 
     public void sendToAllConnectedSessions(Message message) {
-        System.out.println("SessionHandler#sendToAllConnectedSessions() is trying to send a message to " + this.sessions.size() + " clients.");
+        LOGGER.info("SessionHandler#sendToAllConnectedSessions() is trying to send a message to " + this.sessions.size() + " clients.");
         for (WebSocketSession session : this.sessions) {
             this.sendToSession(session, message);
         }

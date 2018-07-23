@@ -19,6 +19,9 @@ import javax.inject.Inject;
 import javax.servlet.AsyncContext;
 import javax.servlet.ServletResponse;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 // TODO どこまでをsynchronizedで囲むべきか？コネクションアクセスに関するよりよい排他方式は何か？
 // TODO AsyncContextにアクセスしたとき例外をどう処理すべきか？
 // TODO クライアントごとに溜まったメッセージが存在する場合のリトライ戦略をどう記述すべきか？
@@ -28,6 +31,7 @@ public class ResponseExecutor {
     private Object synchronous;
     private SessionContainer contexts;
     private ExecutorService pool;
+    private static final Logger LOGGER = Logger.getLogger(ResponseExecutor.class.getName());
 
     public ResponseExecutor() {
     }
@@ -106,7 +110,9 @@ public class ResponseExecutor {
             try {
                 // コンテキストのチェックアウト
                 SessionContainer sessionContainer = this.sessionCloak.checkout();
+                LOGGER.info("ResponseExecutor.MessageHandler#run() can send?: " + (sessionContainer.containsKey(this.key) ? "yes" : "no"));
                 if (sessionContainer.containsKey(this.key)) {
+                    LOGGER.info("ResponseExecutor.MessageHandler#run() is trying to set a result.");
                     AsyncContext ctx = sessionContainer.get(this.key);
                     ServletResponse response = ctx.getResponse();
                     response.setContentType("application/json");
@@ -122,7 +128,8 @@ public class ResponseExecutor {
                         this.sessionCloak.checkin(sessionContainer);
                     }
                 }
-            } catch (IOException ex) {
+            } catch (Exception ex) {
+                LOGGER.info("ResponseExecutor.MessageHandler#run() raised an exception.");
                 ex.printStackTrace();
             }
         }

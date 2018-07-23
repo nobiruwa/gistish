@@ -16,11 +16,15 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.async.DeferredResult;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 @Component
 public class ResponseExecutor {
     private SessionContainer contexts;
     private ExecutorService pool;
     private final ObjectMapper mapper = new ObjectMapper();
+    private static final Logger LOGGER = Logger.getLogger(ResponseExecutor.class.getName());
 
     public ResponseExecutor() {
     }
@@ -95,11 +99,12 @@ public class ResponseExecutor {
         }
 
         public void run() {
+            try {
                 // コンテキストのチェックアウト
                 SessionContainer sessionContainer = this.sessionCloak.checkout();
-                System.out.println("ResponseExecutor.MessageHandler#run() can send?: " + (sessionContainer.containsKey(this.key) ? "yes" : "no"));
+                LOGGER.info("ResponseExecutor.MessageHandler#run() can send?: " + (sessionContainer.containsKey(this.key) ? "yes" : "no"));
                 if (sessionContainer.containsKey(this.key)) {
-                    System.out.println("ResponseExecutor.MessageHandler#run() is trying to set a result.");
+                    LOGGER.info("ResponseExecutor.MessageHandler#run() is trying to set a result.");
                     DeferredResult<ResponseEntity<String>> deferredResult = sessionContainer.get(this.key);
                     ResponseEntity<String> response = ResponseEntity.status(HttpStatus.OK).header("Content-Type", "application/json").body(message);
                     deferredResult.setResult(response);
@@ -108,6 +113,10 @@ public class ResponseExecutor {
                     // 残ったコンテキストをチェックイン
                     this.sessionCloak.checkin(sessionContainer);
                 }
+            } catch (Exception ex) {
+                LOGGER.info("ResponseExecutor.MessageHandler#run() raised an exception.");
+                ex.printStackTrace();
+            }
         }
     }
 }

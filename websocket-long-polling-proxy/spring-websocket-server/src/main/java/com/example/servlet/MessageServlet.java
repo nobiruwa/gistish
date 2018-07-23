@@ -11,15 +11,19 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 @RestController
 public class MessageServlet {
     @Autowired
     private SessionHandler sessionHandler;
+    private static final Logger LOGGER = Logger.getLogger(MessageServlet.class.getName());
 
     @CrossOrigin(origins="*")
     @RequestMapping(value="/actions", method=RequestMethod.POST)
     protected void actions(@RequestBody RequestMessage message) {
-        System.out.println("MessageServlet#actions(" + message.getKey() + " " + message.getMessage().toString() + ")");
+        LOGGER.info("MessageServlet#actions(" + message.getKey() + " " + message.getMessage().toString() + ")");
         sessionHandler.sendToAllConnectedSessions(message);
     }
 }

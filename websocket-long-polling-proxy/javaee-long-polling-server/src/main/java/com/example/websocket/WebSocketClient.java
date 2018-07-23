@@ -23,8 +23,8 @@ import javax.websocket.OnOpen;
 import javax.websocket.Session;
 import javax.websocket.WebSocketContainer;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @ApplicationScoped
 @ClientEndpoint
@@ -35,7 +35,7 @@ public class WebSocketClient {
     @Inject
     private ResponseExecutor responseExecutor;
 
-    private static final Logger logger = LoggerFactory.getLogger(WebSocketClient.class);
+    private static final Logger LOGGER = Logger.getLogger(WebSocketClient.class.getName());
 
     public WebSocketClient() {
     }
@@ -59,7 +59,7 @@ public class WebSocketClient {
     public void open(URI endpointURI) {
         try {
             WebSocketContainer container = ContainerProvider.getWebSocketContainer();
-            System.out.println("WebSocketClient#open(" + endpointURI.toString() + ")");
+            LOGGER.info("WebSocketClient#open(" + endpointURI.toString() + ")");
             container.connectToServer(this, endpointURI);
         } catch (Exception ex) {
             ex.printStackTrace();
@@ -70,7 +70,7 @@ public class WebSocketClient {
         if (this.session != null) {
             this.session.getBasicRemote().sendText("{}");
         } else {
-            logger.info("session is null.");
+            LOGGER.info("session is null.");
         }
     }
     @OnOpen
@@ -81,20 +81,22 @@ public class WebSocketClient {
 
     @OnMessage
     public void onMessage(String message, Session session) {
-        logger.info("WebSocketClient @OnMessage onMessage(...)");
-        logger.info("WebSocketClient @OnMessage onMessage(...) message: " + message);
+        LOGGER.info("WebSocketClient @OnMessage onMessage(...)");
+        LOGGER.info("WebSocketClient @OnMessage onMessage(...) message: " + message);
         // メッセージのパース、宛先の特定、メッセージの送信
         responseExecutor.sendIfAvailable(message);
     }
 
     @OnError
     public void processError(Session session, Throwable throwable) {
-        logger.info("WebSocketClient @OnError onError(...)");
+        LOGGER.info("WebSocketClient @OnError onError(...)");
         throwable.printStackTrace();
     }
 
     @OnClose
     public void onClose(Session session, CloseReason closeReason) {
+        LOGGER.info("WebSocketClient @OnClose onClose(...)");
+        LOGGER.info(closeReason.toString());
         this.session = null;
         this.config = null;
     }
