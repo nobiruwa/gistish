@@ -1,0 +1,19 @@
+import "oaidl.idl";
+import "ocidl.idl";
+
+[uuid(abe46ee4-aec0-4e9a-bcde-8fb7020a5c7a), version(1.0)]
+interface ITabletModeDetectorComponent : IUnknown
+{
+
+	HRESULT IsTabletMode(HWND hwnd, [out, retval] int* value);
+};
+
+[uuid(4a67a4d5-3237-44f5-b9f6-44bc423356cc), version(1.0)]
+library TabletModeDetectorLib
+{
+	[uuid(102aee51-6848-4611-b039-98581d4f1d06), version(1.0)]
+	coclass TabletModeDetectorComponent
+	{
+		[default] interface ITabletModeDetectorComponent;
+	};
+}

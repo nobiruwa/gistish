@@ -1,0 +1,31 @@
+Windows Registry Editor Version 5.00
+
+[HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{102aee51-6848-4611-b039-98581d4f1d06}]
+@="TabletModeDetectorComponent Class"
+
+[HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{102aee51-6848-4611-b039-98581d4f1d06}\InprocServer32]
+@="C:\\Users\\ein\\source\\repos\\WpfAppTabletModeDetector\\Debug\\WRLTabletModeDetector.dll"
+"ThreadingModel"="Apartment"
+
+[HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{102aee51-6848-4611-b039-98581d4f1d06}\Programmable]
+
+[HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{102aee51-6848-4611-b039-98581d4f1d06}\TypeLib]
+@="{4a67a4d5-3237-44f5-b9f6-44bc423356cc}"
+
+[HKEY_CLASSES_ROOT\Wow6432Node\CLSID\{102aee51-6848-4611-b039-98581d4f1d06}\Version]
+@="1.0"
+
+[HKEY_CLASSES_ROOT\CLSID\{102aee51-6848-4611-b039-98581d4f1d06}]
+@="TabletModeDetectorComponent Class"
+
+[HKEY_CLASSES_ROOT\CLSID\{102aee51-6848-4611-b039-98581d4f1d06}\InprocServer32]
+@="C:\\Users\\ein\\source\\repos\\WpfAppTabletModeDetector\\x64\\Debug\\WRLTabletModeDetector.dll"
+"ThreadingModel"="Apartment"
+
+[HKEY_CLASSES_ROOT\CLSID\{102aee51-6848-4611-b039-98581d4f1d06}\Programmable]
+
+[HKEY_CLASSES_ROOT\CLSID\{102aee51-6848-4611-b039-98581d4f1d06}\TypeLib]
+@="{4a67a4d5-3237-44f5-b9f6-44bc423356cc}"
+
+[HKEY_CLASSES_ROOT\CLSID\{102aee51-6848-4611-b039-98581d4f1d06}\Version]
+@="1.0"
