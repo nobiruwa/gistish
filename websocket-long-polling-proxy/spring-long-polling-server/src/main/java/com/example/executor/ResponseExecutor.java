@@ -102,9 +102,17 @@ public class ResponseExecutor {
             try {
                 // コンテキストのチェックアウト
                 SessionContainer sessionContainer = this.sessionCloak.checkout();
-                LOGGER.info("ResponseExecutor.MessageHandler#run() can send?: " + (sessionContainer.containsKey(this.key) ? "yes" : "no"));
-                if (sessionContainer.containsKey(this.key)) {
-                    LOGGER.info("ResponseExecutor.MessageHandler#run() is trying to set a result.");
+                LOGGER.info("ResponseExecutor.MessageHandler#run() can send with " + this.key + "?: " + (sessionContainer.containsKey(this.key) ? "yes" : "no"));
+                if (this.key.equals("*")) {
+                    LOGGER.info("ResponseExecutor.MessageHandler#run() is trying to set a result to " + sessionContainer.size() + " clients.");
+                    for (DeferredResult<ResponseEntity<String>> deferredResult : sessionContainer.values()) {
+                        ResponseEntity<String> response = ResponseEntity.status(HttpStatus.OK).header("Content-Type", "application/json").body(message);
+                        deferredResult.setResult(response);
+                    }
+                    sessionContainer.clear();
+                    this.sessionCloak.checkin(sessionContainer);
+                } else if (sessionContainer.containsKey(this.key)) {
+                    LOGGER.info("ResponseExecutor.MessageHandler#run() is trying to set a result to 1 client.");
                     DeferredResult<ResponseEntity<String>> deferredResult = sessionContainer.get(this.key);
                     ResponseEntity<String> response = ResponseEntity.status(HttpStatus.OK).header("Content-Type", "application/json").body(message);
                     deferredResult.setResult(response);

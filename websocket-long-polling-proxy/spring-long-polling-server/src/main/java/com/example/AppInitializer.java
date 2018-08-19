@@ -1,5 +1,6 @@
 package com.example;
 
+import com.example.ApplicationConfig;
 import com.example.servlet.ServletConfig;
 import com.example.websocket.WebSocketConfig;
 
@@ -13,6 +14,7 @@ public class AppInitializer extends AbstractAnnotationConfigDispatcherServletIni
     @Override
     protected Class<?>[] getRootConfigClasses() {
         return new Class[] {
+            ApplicationConfig.class,
             ServletConfig.class,
             WebSocketConfig.class
         };
