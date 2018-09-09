@@ -1,15 +1,14 @@
 {
-  "name": "drawer-example",
+  "name": "propertyeditor-example",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "d3": "^5.5.0"
+    "vue": "^2.5.17"
   }
 }
