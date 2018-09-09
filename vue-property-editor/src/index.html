@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+  </head>
+  <body>
+    <div id="app"><property-editor v-bind:items="items"></property-editor></div>
+    <button id="toggle">Toggle Model</button>
+    <script src="../node_modules/vue/dist/vue.js"></script>
+    <script src="scripts/app.js" type="module"></script>
+    <script>
+     window.addEventListener('load', () => {
+       let toggleButton = document.getElementById('toggle');
+       toggleButton.addEventListener('click', () => toggle());
+
+       run();
+     });
+    </script>
+  </body>
+</html>
