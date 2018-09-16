@@ -13,10 +13,12 @@ export function run(model=initialModel) {
 
 export function toggle() {
   _currentModel = _currentModel === initialModel ? alternativeModel : initialModel;
+  console.log(JSON.stringify(_currentModel));
   view.update(_currentModel);
 }
 
 export default {
   run: run,
-  toggle: toggle
+  toggle: toggle,
+  view: view
 };

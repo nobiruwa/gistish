@@ -1,16 +1,30 @@
 /*global Vue:false */
 'use strict';
 
-import propertyColorPicker from './modules/property/color-picker.js';
-import propertyText from './modules/property/text.js';
-import propertyFactory from './modules/property/factory.js';
-import propertyEditor from './modules/property-editor.js';
+import propertyTypeColorPicker from './modules/property-type/color-picker.js';
+import propertyTypeSingleList from './modules/property-type/single-list.js';
+import propertyTypeText from './modules/property-type/text.js';
 
-import boxEditor from './modules/box-editor.js';
+import propertyLabel from './modules/property-label.js';
 
-Vue.component('property-color-picker', propertyColorPicker);
-Vue.component('property-text', propertyText);
-Vue.component('property-factory', propertyFactory);
-Vue.component('property-editor', propertyEditor);
+import propertyItemFieldName from './modules/property-item/field-name.js';
+import propertyItemBackgroundColor from './modules/property-item/background-color.js';
 
-Vue.component('box-editor', boxEditor);
+import propertyEditorBox from './modules/property-editor/box.js';
+import propertyEditorListBox from './modules/property-editor/list-box.js';
+
+import propertyEditorFactory from './modules/property-editor-factory.js';
+
+Vue.component('property-type-color-picker', propertyTypeColorPicker);
+Vue.component('property-type-single-list', propertyTypeSingleList);
+Vue.component('property-type-text', propertyTypeText);
+
+Vue.component('property-label', propertyLabel);
+
+Vue.component('property-item-field-name', propertyItemFieldName);
+Vue.component('property-item-background-color', propertyItemBackgroundColor);
+
+Vue.component('property-editor-box', propertyEditorBox);
+Vue.component('property-editor-list-box', propertyEditorListBox);
+
+Vue.component('property-editor-factory', propertyEditorFactory);

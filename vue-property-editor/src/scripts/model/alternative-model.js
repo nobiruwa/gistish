@@ -1,7 +1,8 @@
 'use strict';
 
 export default {
-  type: 'box',
-  value: '1010',
-  foregroundColor: '#FFF'
+  fields: [{
+    type: 'list-box',
+    fieldName: '00000001'
+  }]
 };

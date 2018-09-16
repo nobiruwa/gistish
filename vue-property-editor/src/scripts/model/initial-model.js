@@ -1,7 +1,8 @@
 'use strict';
 
 export default {
-  type: 'box',
-  value: '123',
-  foregroundColor: ''
+  fields: [{
+    type: 'box',
+    fieldName: '00000000'
+  }]
 };
