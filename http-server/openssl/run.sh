@@ -1,0 +1,9 @@
+sh ./_01-create-rootca-directory.sh
+sh ./_02-create-rootca.sh
+sh ./_03-create-rootca-csr.sh
+sh ./_04-create-rootca-self-signing-cert.sh
+sh ./_05-create-intermediateca-directory.sh
+sh ./_06-create-intermediateca.sh
+sh ./_07-create-intermediateca-csr.sh
+sh ./_08-create-intermediateca-cert.sh
+sh ./_09-create-intermediateca-cert-nopass.sh
