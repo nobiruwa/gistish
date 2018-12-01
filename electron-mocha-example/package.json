@@ -1,0 +1,44 @@
+{
+  "name": "electron-mocha-example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "build:dev": "npm run build:dev:main && npm run build:dev:renderer",
+    "build:dev:main": "webpack --config webpack.config.main.js",
+    "build:dev:renderer": "webpack --config webpack.config.renderer.js",
+    "start:dev": "electron dist/development/main-process/main.js",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "test:unittest:main": "npm run test:unittest:main:mocha && npm run test:unittest:main:report",
+    "test:unittest:main:mocha": "cross-env NODE_ENV=test electron-mocha --require @babel/register test/unittest/main-process/**/*-test.js",
+    "test:unittest:main:report": "cross-env NODE_ENV=test nyc report --reporter=lcov --reporter=text-lcov"
+  },
+  "nyc": {
+    "require": [
+      "@babel/register"
+    ],
+    "sourceMap": false,
+    "instrument": false
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.1.6",
+    "@babel/preset-env": "^7.1.6",
+    "@babel/register": "^7.0.0",
+    "babel-plugin-istanbul": "^5.1.0",
+    "chai": "^4.2.0",
+    "cross-env": "^5.2.0",
+    "devtron": "^1.4.0",
+    "electron-mocha": "^6.0.4",
+    "html-loader": "^0.5.5",
+    "html-webpack-plugin": "^3.2.0",
+    "mocha": "^5.2.0",
+    "nyc": "^13.1.0",
+    "webpack": "^4.26.1",
+    "webpack-cli": "^3.1.2"
+  },
+  "dependencies": {
+    "electron": "^3.0.10"
+  }
+}
