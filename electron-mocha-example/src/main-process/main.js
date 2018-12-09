@@ -1,10 +1,13 @@
 import electron from 'electron';
+import process from 'process';
 
 const app = electron.app;
 const BrowserWindow = electron.BrowserWindow;
 
 let win;
-app.on('ready', onReady);
+if (process.env.NODE_ENV !== 'test' || process.env.NODE_ENV !== 'coverage') {
+  app.on('ready', onReady);
+}
 
 function onClose() {
   win = null;
