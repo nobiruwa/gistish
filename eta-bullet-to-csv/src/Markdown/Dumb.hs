@@ -55,7 +55,7 @@ toCsvLine line =
       numCommas = (length spaces) `div` 2
       commas = replicate numCommas ','
       csvLine = case item of
-        [] -> line -- 1列目にlineそのまま
-        ('-':' ':rest) -> commas ++ rest
-        xs -> line -- 1列目にlineそのまま
+        [] -> "\"" ++ line ++ "\"" -- 1列目にlineそのまま
+        ('-':' ':rest) -> commas ++ "\"" ++ rest ++ "\""
+        xs -> "\"" ++ line ++ "\"" -- 1列目にlineそのまま
   in csvLine
