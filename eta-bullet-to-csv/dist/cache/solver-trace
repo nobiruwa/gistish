@@ -1,0 +1,18 @@
+targets: eta-bullet-to-csv
+constraints: 
+  setup.etlas-cabal >=1.20 (minimum version of etlas-cabal used by Setup.hs)
+  eta-bullet-to-csv ==0.1.0.0 (user target)
+strategy: PreferLatestForSelected
+reorder goals: False
+count conflicts: True
+independent goals: False
+avoid reinstalls: False
+shadow packages: False
+strong flags: False
+allow boot library installs: False
+max backjumps: 2000
+[__0] trying: eta-bullet-to-csv-0.1.0.0 (user goal)
+[__1] next goal: base (dependency of eta-bullet-to-csv-0.1.0.0)
+[__1] rejecting: base-4.12.0.0, base-4.11.1.0, base-4.11.0.0 (only already installed instances can be used)
+[__1] rejecting: base-4.10.1.0, base-4.10.0.0, base-4.9.1.0, base-4.9.0.0, base-4.8.2.0, base-4.8.1.0, base-4.8.0.0, base-4.7.0.2, base-4.7.0.1, base-4.7.0.0, base-4.6.0.1, base-4.6.0.0, base-4.5.1.0, base-4.5.0.0, base-4.4.1.0, base-4.4.0.0, base-4.3.1.0, base-4.3.0.0, base-4.2.0.2, base-4.2.0.1, base-4.2.0.0, base-4.1.0.0, base-4.0.0.0, base-3.0.3.2, base-3.0.3.1 (conflict: eta-bullet-to-csv => base>=4.11)
+[__0] fail (backjumping, conflict set: base, eta-bullet-to-csv)
