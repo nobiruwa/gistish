@@ -1,0 +1,41 @@
+.content {
+  display: grid;
+  grid-template-rows: 30px 1fr;
+  grid-template-columns: 30px 1fr;
+  width: 300px;
+  height: 300px;
+}
+
+.content .main-area {
+  overflow: auto;
+}
+
+.content .main-area-ruler {
+  overflow: hidden;
+}
+
+.content .main-area-ruler svg line.ruler-step {
+  color: black;
+}
+
+.content .main-area-ruler svg line.ruler-step-10 {
+}
+
+.content .main-area-ruler svg line.ruler-step-5 {
+}
+
+.content .main-area-ruler svg line.ruler-step-1 {
+}
+
+.content .main-area-ruler svg {
+  position: relative;
+  overflow: auto;
+}
+
+.content .main-area-ruler-hruler svg {
+  height: 100%;
+}
+
+.content .main-area-ruler-vruler svg {
+  width: 100%;
+}
