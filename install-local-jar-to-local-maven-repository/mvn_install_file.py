@@ -6,7 +6,7 @@ import os.path
 import re
 import sys
 
-RE_VERSION = re.compile(r'(?<=-)?[\.0-9]+(-SNAPSHOT)?')
+RE_VERSION = re.compile(r'(?<=-)[\.0-9]+(-SNAPSHOT)?')
 
 def find_jars(dir_):
     return glob.glob(os.path.join(dir_, '**', '*.jar'))
@@ -26,7 +26,7 @@ def create_pseudo_dependency(jarpath):
     }
 
 def create_pom_dependency(jar):
-    return 'mvn install:install-file -Dfile={0} -DgroupId={1} -DartifactId={2} -Dversion={3} -Dpackaging=jar -DgeneratePom=true -DcreateChecksum=true'.format(
+    return 'mvn install:install-file -Dfile="{0}" -DgroupId="{1}" -DartifactId="{2}" -Dversion="{3}" -Dpackaging=jar -DgeneratePom=true -DcreateChecksum=true'.format(
         jar['jarpath'],
         'com.example',
         jar['modulename'],
