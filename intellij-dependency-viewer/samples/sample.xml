@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root isBackward="false">
+  <file path="$PROJECT_DIR$/src/main/java/org/example/websocket/ResponseMessage.java" />
+  <file path="$PROJECT_DIR$/src/main/java/org/example/websocket/SessionHandler.java">
+    <dependency path="$USER_HOME$/dockers/jdk8/.gradle/caches/modules-2/files-2.1/javax/javaee-api/7.0/a0c99c2a5626efb823da1500786e92c1bf6a57cf/javaee-api-7.0-sources.jar!/javax/json/JsonObjectBuilder.java" />
+    <dependency path="$USER_HOME$/dockers/jdk8/.gradle/caches/modules-2/files-2.1/javax.websocket/javax.websocket-api/1.1/c2c8923b5cc02e5ff9eb100fc718b582efb164e2/javax.websocket-api-1.1-sources.jar!/javax/websocket/RemoteEndpoint.java" />
+    <dependency path="$USER_HOME$/dockers/jdk8/.gradle/caches/modules-2/files-2.1/javax/javaee-api/7.0/a0c99c2a5626efb823da1500786e92c1bf6a57cf/javaee-api-7.0-sources.jar!/javax/json/JsonValue.java" />
+    <dependency path="$USER_HOME$/dockers/jdk8/.gradle/caches/modules-2/files-2.1/javax/javaee-api/7.0/a0c99c2a5626efb823da1500786e92c1bf6a57cf/javaee-api-7.0-sources.jar!/javax/json/JsonObject.java" />
+    <dependency path="$USER_HOME$/dockers/jdk8/.gradle/caches/modules-2/files-2.1/javax/javaee-api/7.0/a0c99c2a5626efb823da1500786e92c1bf6a57cf/javaee-api-7.0-sources.jar!/javax/json/spi/JsonProvider.java" />
+    <dependency path="$USER_HOME$/dockers/jdk8/.gradle/caches/modules-2/files-2.1/javax/javaee-api/7.0/a0c99c2a5626efb823da1500786e92c1bf6a57cf/javaee-api-7.0-sources.jar!/javax/json/Json.java" />
+    <dependency path="$USER_HOME$/dockers/jdk8/.gradle/caches/modules-2/files-2.1/javax/javaee-api/7.0/a0c99c2a5626efb823da1500786e92c1bf6a57cf/javaee-api-7.0-sources.jar!/javax/enterprise/context/ApplicationScoped.java" />
+    <dependency path="$USER_HOME$/dockers/jdk8/.gradle/caches/modules-2/files-2.1/javax.websocket/javax.websocket-api/1.1/c2c8923b5cc02e5ff9eb100fc718b582efb164e2/javax.websocket-api-1.1-sources.jar!/javax/websocket/Session.java" />
+  </file>
+  <file path="$PROJECT_DIR$/src/main/java/org/example/websocket/WebSocketServer.java">
+    <dependency path="$PROJECT_DIR$/src/main/java/org/example/websocket/SessionHandler.java" />
+    <dependency path="$USER_HOME$/dockers/jdk8/.gradle/caches/modules-2/files-2.1/javax.websocket/javax.websocket-api/1.1/c2c8923b5cc02e5ff9eb100fc718b582efb164e2/javax.websocket-api-1.1-sources.jar!/javax/websocket/OnError.java" />
+    <dependency path="$USER_HOME$/dockers/jdk8/.gradle/caches/modules-2/files-2.1/javax.websocket/javax.websocket-api/1.1/c2c8923b5cc02e5ff9eb100fc718b582efb164e2/javax.websocket-api-1.1-sources.jar!/javax/websocket/OnOpen.java" />
+    <dependency path="$USER_HOME$/dockers/jdk8/.gradle/caches/modules-2/files-2.1/javax.websocket/javax.websocket-api/1.1/c2c8923b5cc02e5ff9eb100fc718b582efb164e2/javax.websocket-api-1.1-sources.jar!/javax/websocket/server/ServerEndpoint.java" />
+    <dependency path="$USER_HOME$/dockers/jdk8/.gradle/caches/modules-2/files-2.1/javax.websocket/javax.websocket-api/1.1/c2c8923b5cc02e5ff9eb100fc718b582efb164e2/javax.websocket-api-1.1-sources.jar!/javax/websocket/OnClose.java" />
+    <dependency path="$USER_HOME$/dockers/jdk8/.gradle/caches/modules-2/files-2.1/javax/javaee-api/7.0/a0c99c2a5626efb823da1500786e92c1bf6a57cf/javaee-api-7.0-sources.jar!/javax/json/JsonObject.java" />
+    <dependency path="$USER_HOME$/dockers/jdk8/.gradle/caches/modules-2/files-2.1/javax/javaee-api/7.0/a0c99c2a5626efb823da1500786e92c1bf6a57cf/javaee-api-7.0-sources.jar!/javax/json/JsonReader.java" />
+    <dependency path="$USER_HOME$/dockers/jdk8/.gradle/caches/modules-2/files-2.1/javax/javaee-api/7.0/a0c99c2a5626efb823da1500786e92c1bf6a57cf/javaee-api-7.0-sources.jar!/javax/inject/Inject.java" />
+    <dependency path="$USER_HOME$/dockers/jdk8/.gradle/caches/modules-2/files-2.1/javax/javaee-api/7.0/a0c99c2a5626efb823da1500786e92c1bf6a57cf/javaee-api-7.0-sources.jar!/javax/json/Json.java" />
+    <dependency path="$USER_HOME$/dockers/jdk8/.gradle/caches/modules-2/files-2.1/javax.websocket/javax.websocket-api/1.1/c2c8923b5cc02e5ff9eb100fc718b582efb164e2/javax.websocket-api-1.1-sources.jar!/javax/websocket/OnMessage.java" />
+    <dependency path="$USER_HOME$/dockers/jdk8/.gradle/caches/modules-2/files-2.1/javax/javaee-api/7.0/a0c99c2a5626efb823da1500786e92c1bf6a57cf/javaee-api-7.0-sources.jar!/javax/enterprise/context/ApplicationScoped.java" />
+    <dependency path="$USER_HOME$/dockers/jdk8/.gradle/caches/modules-2/files-2.1/javax.websocket/javax.websocket-api/1.1/c2c8923b5cc02e5ff9eb100fc718b582efb164e2/javax.websocket-api-1.1-sources.jar!/javax/websocket/Session.java" />
+  </file>
+  <file path="$PROJECT_DIR$/src/main/resources/META-INF/beans.xml" />
+</root>
+
