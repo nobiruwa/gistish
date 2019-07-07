@@ -1,5 +1,13 @@
-node_modules/
-**/.metadata
+**/*.git/
+**/*.iml
 **/.gradle
+**/.idea/
+**/.metadata
+**/.settings/
 **/build/
+**/cda-workset/
 **/target/
+
+./*.git/
+
+node_modules/

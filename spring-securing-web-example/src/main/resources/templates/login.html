@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Spring Security Example</title>
+  </head>
+  <body>
+    <div th:if="${param.error}">Invalid username and password.</div>
+    <div th:if="${param.logout}">You have been logged out.</div>
+    <form th:action="@{/login}" method="post">
+      <div>
+        <label>User Name : <input name="username" type="text" value=""/></label>
+        <label>Password : <input name="password" type="text" value=""/></label>
+        <div>
+          <input type="submit" value="Sign In"/>
+        </div>
+      </div>
+    </form>
+  </body>
+</html>
