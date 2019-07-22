@@ -28,5 +28,6 @@ module.exports = {
     // ルールの追加
     semi: ['error', 'always'],
     'comma-dangle': ['error', 'always-multiline'],
+    'space-before-function-paren': ['error', 'never'],
   }
 };

@@ -6,14 +6,17 @@
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
+    "watch": "NODE_ENV=production webpack --watch --config build/webpack.prod.conf.js",
     "start": "npm run dev",
     "unit": "jest --config test/unit/jest.conf.js --coverage",
     "e2e": "node test/e2e/runner.js",
     "test": "npm run unit && npm run e2e",
     "lint": "eslint --ext .js,.vue src test/unit test/e2e/specs",
+    "lint-fix": "eslint --fix --ext .js,.vue src test/unit test/e2e/specs",
     "build": "node build/build.js"
   },
   "dependencies": {
+    "@vue/cli-service": "^3.9.3",
     "axios": "^0.19.0",
     "vee-validate": "^2.2.13",
     "vue": "^2.5.2",

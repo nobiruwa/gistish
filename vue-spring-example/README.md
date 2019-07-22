@@ -15,21 +15,24 @@
 
 1. [Global CORS configuration](https://spring.io/guides/gs/rest-service-cors/#_global_cors_configuration)の要領でAPIにCORSを設定してください。
 
-## ログイン画面を作る
+## ログイン機構を作る
 
-以下のステップでログイン画面を作ってください。
+SPAでは、ログイン画面とログアウト画面を用いる従来のWebアプリケーションとは異なり、RESTful APIをJWT認証などのトークンで保護します。
+OAuth 2.0などの
 
-1. 未ログイン状態である場合は、`/login`以外のURLへのアクセスがログイン画面にリダイレクトされるようにしてください。
-1. クライアントのバリデーションを通過したらユーザーがアクセスしたかった画面URLに遷移するようにしてください。
-1. クライアントのバリデーションを通過したら、ユーザー名とパスワードをサーバーのDBと照合するようにしてください。
+spring-securityでは、JWT認証を司る`org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter`を実装し、RESTful APIのURLに対してフィルターとして追加します。
 
-## ログイン以外の画面を作る
+JWT認証のフィルターを通過するためのトークンは、画面を持たないログインAPIから取得できるように実装します。
+この手順は<https://auth0.com/blog/implementing-jwt-authentication-on-spring-boot/>に従います。
+
+## 画面を作る
 
 1. ルートディレクトリで以下のコマンドを実行し、NPMプロジェクトを作成します。
    - `vue init webpack vue-spring-example-view`
-     - `npm i -g npm @vue/cli @vue/init`を実行して、`vue`コマンドと`vue init`サブコマンドを入手してください。
+     - `npm i -g npm @vue/cli @vue/cli-service @vue/init`を実行して、`vue`コマンドと`vue init`サブコマンドを入手してください。
      - `vue init`実行時のコンフィグは以下の[vue initのコンフィグ]の通りとします。
 1. `npm i -S vuex vuex-persistedstate vee-validate vue-lazyload axios vue-multiselect vue-datepicker vue-good-table`で他の依存パッケージをインストールします。
+1. `vue-spring-example-view/package.json`に以下の[package.jsonの追加コマンド]を追加します。
 1. `build.gradle`に以下の[build.gradleの追加タスク]を追加します。
 
 ### 依存パッケージについて
@@ -151,6 +154,12 @@ are required elsewhere
 ? Should we run `npm install` for you after the project has been created? (recommended) npm
 ```
 
+### package.jsonの追加コマンド
+
+```
+    "watch": "NODE_ENV=production webpack --watch --config build/webpack.prod.conf.js",
+```
+
 ### build.gradleの追加タスク
 
 ```
@@ -191,9 +200,27 @@ const store = new Vuex.Store({
 
 ## Build & Boot
 
+### Gradleの最新化
+
 ```
 $ ./gradlew wrapper --gradle-version=5.5
+```
+
+### フロントエンドとバックエンドを両方ビルドする場合
+
+```
 $ ./gradlew buildView build bootRun
+```
+
+### フロントエンドのビルド時間を短縮したい場合(推奨)
+
+```
+$ cd vue-spring-example-view
+$ npm run watch
+```
+
+```
+$ ./gradlew build bootRun
 ```
 
 ## References
@@ -204,5 +231,17 @@ $ ./gradlew buildView build bootRun
 - <https://www.baeldung.com/spring-boot-vue-js>
 - <https://jp.vuejs.org/v2/style-guide/>
 - <https://vuex.vuejs.org/guide/>
+- <https://vuejs.org/v2/guide/computed.html>
 - <https://baianat.github.io/vee-validate/>
 - <https://kntmr.hatenablog.com/entry/2018/02/28/200112>
+  - axiosをVuexで扱う場合の考慮
+- <https://auth0.com/blog/implementing-jwt-authentication-on-spring-boot/>
+  - JWT認証の実装例
+- <https://qiita.com/nyasba/items/f9b1b6be5540743f8bac>
+  - JWT認証の実装例
+- <https://www.mkyong.com/spring-boot/spring-security-there-is-no-passwordencoder-mapped-for-the-id-null/>
+  - 平文のパスワードを扱う
+- <https://qiita.com/takatama/items/05e9fbc7199cde4caf60>
+  - Vue Routerの画面遷移に認証を差し挟む
+- <https://router.vuejs.org/guide/advanced/navigation-guards.html#global-before-guards>
+  - Vue Routerの画面遷移に処理を差し挟む
