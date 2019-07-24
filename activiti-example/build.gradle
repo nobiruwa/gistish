@@ -1,0 +1,18 @@
+apply plugin: 'java'
+
+repositories {
+    // Use 'jcenter' for resolving your dependencies.
+    // You can declare any Maven/Ivy/file repository here.
+    jcenter()
+}
+
+dependencies {
+    compile 'commons-cli:commons-cli:1.4'
+    compile 'org.activiti:activiti-engine:6.0.0'
+}
+
+jar {
+    from {
+        configurations.compile.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}
