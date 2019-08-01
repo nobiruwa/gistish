@@ -1,9 +1,9 @@
 <template>
-<div id="app">
-  <app-header></app-header>
-  <router-view/>
-  <app-footer></app-footer>
-</div>
+  <v-app>
+    <app-header></app-header>
+    <router-view/>
+    <app-footer></app-footer>
+  </v-app>
 </template>
 
 <script>
@@ -16,16 +16,8 @@ export default {
     'app-header': Header,
     'app-footer': Footer,
   },
+  data: () => ({
+    //
+  }),
 };
 </script>
-
-<style>
-#app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
