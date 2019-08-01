@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+       xmlns:util="http://www.springframework.org/schema/util"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util.xsd">
 
   <bean id="processEngineConfiguration" class="org.activiti.engine.impl.cfg.StandaloneProcessEngineConfiguration">
 
@@ -11,6 +12,10 @@
     <property name="jdbcUsername" value="sa" />
     <property name="jdbcPassword" value="" />
 
+    <property name="delegateInterceptor">
+      <bean class="com.example.SpringAutowireDelegateInterceptor">
+      </bean>
+    </property>
     <property name="databaseSchemaUpdate" value="true" />
 
     <property name="asyncExecutorActivate" value="false" />
@@ -19,6 +24,13 @@
     <!-- <property name="mailServerPort" value="5025" /> -->
 
     <property name="history" value="audit" />
+
+    <property name="beans">
+      <util:map map-class="java.util.HashMap" key-type="java.lang.Object" value-type="java.lang.Object">
+        <!-- <entry key="" value-ref="sessionFactory"/> -->
+      </util:map>
+    </property>
   </bean>
 
+  
 </beans>

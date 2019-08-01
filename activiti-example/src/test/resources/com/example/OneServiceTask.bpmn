@@ -5,7 +5,11 @@
     <serviceTask id="myFirstServiceTask" name="My First Service Task" activiti:class="com.example.MyFirstServiceTask"></serviceTask>
     <sequenceFlow id="flow1" sourceRef="startevent1" targetRef="myFirstServiceTask"></sequenceFlow>
     <endEvent id="endevent1" name="End"></endEvent>
-    <serviceTask id="mySecondServiceTask" name="Service Task" activiti:class="com.example.MySecondServiceTask"></serviceTask>
+    <serviceTask id="mySecondServiceTask" name="Service Task" activiti:class="com.example.MySecondServiceTask">
+      <extensionElements>
+        <activiti:field name="processEngineConfiguration">${processEngineConfiguration}</activiti:field>
+      </extensionElements>
+    </serviceTask>
     <sequenceFlow id="flow2" sourceRef="myFirstServiceTask" targetRef="mySecondServiceTask"></sequenceFlow>
     <sequenceFlow id="flow3" sourceRef="mySecondServiceTask" targetRef="endevent1"></sequenceFlow>
   </process>
