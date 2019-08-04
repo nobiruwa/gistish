@@ -1,0 +1,19 @@
+{
+  "name": "svg-reporter-node",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "serve": "node --experimental-modules server.mjs"
+  },
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "express": "^4.17.1",
+    "power-assert": "^1.6.1",
+    "uuid": "^3.3.2",
+    "xmldom": "^0.1.27",
+    "xpath": "0.0.27"
+  }
+}
