@@ -10,8 +10,10 @@
   "license": "MIT",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "power-assert": "^1.6.1",
+    "puppeteer": "^1.19.0",
     "uuid": "^3.3.2",
     "xmldom": "^0.1.27",
     "xpath": "0.0.27"

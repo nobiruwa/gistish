@@ -2,7 +2,7 @@
 
 お遊びで帳票に見える何かを出力したいと思い、SVGで構築することにしました。
 
-## アイディア
+## 技術的アイディア
 
 1. Inkscapeによるテンプレートファイルの作成
    1. 編集時のファイルフォーマットは`Inkscape SVG`とします。
@@ -52,15 +52,23 @@
 ### 起動方法
 
 ```
-cd svg-reporter-node
-npm install
-npm run serve
+$ cd svg-reporter-node
+$ npm install
+$ npm run serve
 ```
 
 #### curlによるPOST
 
 ```
-curl -X POST http://localhost:3000/ -H 'Content-Type: application/json' -d '@./sample/meeting-minutes.json'
+$ curl -X POST http://localhost:3000/report -H 'Content-Type: application/json' -d '@./sample/meeting-minutes.json'
+{"svg":{"key":"5a3284e6-d18a-4655-a555-54e4ac41c155","filePath":"output/svg/5a3284e6-d18a-4655-a555-54e4ac41c155/report.svg"},"pdf":{"key":"5a3284e6-d18a-4655-a555-54e4ac41c155","filePath":"output/pdf/5a3284e6-d18a-4655-a555-54e4ac41c155/report.pdf"}}
+```
+
+#### SVGもしくはPDFのダウンロード
+
+```
+$ curl -X GET http://localhost:3000/report/5a3284e6-d18a-4655-a555-54e4ac41c155.svg
+$ curl -X GET http://localhost:3000/report/5a3284e6-d18a-4655-a555-54e4ac41c155.pdf
 ```
 
 ## SVG to PDF
@@ -78,13 +86,17 @@ SVGの印刷機能を用いればPDFに変換できます。ChromeでもChromium
    - `<foreignObject>`に対応していないので、今回のアイディアにはマッチしませんでした。
 1. ~~CairoSVGを使います。~~
    - `<foreignObject>`に対応していないので、今回のアイディアにはマッチしませんでした。
-1. Inkscapeのコマンドラインインターフェースを使います。
+1. ~~Inkscapeのコマンドラインインターフェースを使います。~~
+   - `<foreignObject>`に対応していないので、今回のアイディアにはマッチしませんでした。
+1. Chromiumをpuppeteer越しに使う
 
 ### Windows
 
 1. ~~CairoSVGを使います。~~
    - `<foreignObject>`に対応していないので、今回のアイディアにはマッチしませんでした。
-1. Inkscapeのコマンドラインインターフェースを使います。
+1. ~~Inkscapeのコマンドラインインターフェースを使います。~~
+   - `<foreignObject>`に対応していないので、今回のアイディアにはマッチしませんでした。
+1. Chromiumをpuppeteer越しに使う
 
 ## Misc
 

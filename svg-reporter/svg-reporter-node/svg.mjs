@@ -166,7 +166,7 @@ function saveDocument(document, path) {
   fs.writeFileSync(path, str, { encoding: 'utf-8' });
 }
 
-function createSVG(infra, serverConfig, request) {
+function create(infra, serverConfig, request) {
   assert(request.templateName);
   assert(request.data);
 
@@ -200,5 +200,5 @@ function createSVG(infra, serverConfig, request) {
 }
 
 export default {
-  createSVG,
+  create,
 };
