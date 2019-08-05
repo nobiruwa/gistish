@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "jsdoc": "./node_modules/.bin/jsdoc -c jsdoc.conf.json *.js"
+    "jsdoc": "jsdoc -c jsdoc.conf.json *.js",
+    "test": "mocha test"
   },
   "author": "",
   "license": "MIT",
