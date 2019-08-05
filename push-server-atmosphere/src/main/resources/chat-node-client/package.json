@@ -4,7 +4,7 @@
   "description": "",
   "main": "publisher.js",
   "dependencies": {
-    "atmosphere.js": "^2.3.3"
+    "atmosphere.js": "^2.3.8"
   },
   "devDependencies": {},
   "scripts": {

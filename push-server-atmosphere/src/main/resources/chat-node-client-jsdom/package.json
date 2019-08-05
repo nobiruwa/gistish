@@ -4,8 +4,8 @@
   "description": "",
   "main": "publisher.js",
   "dependencies": {
-    "atmosphere.js": "^2.3.3",
-    "jsdom": "^11.11.0"
+    "atmosphere.js": "^2.3.8",
+    "jsdom": "^15.1.1"
   },
   "devDependencies": {},
   "scripts": {
