@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1"
+   xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+   xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence
+        http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+
+    <persistence-unit name="persistance-unit">
+
+        <!-- HibernatePersistance定義 -->
+        <provider>org.hibernate.ejb.HibernatePersistence</provider>
+        <class>com.example.demo.model.User</class>
+
+        <properties>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
+
+            <property name="hibernate.hbm2ddl.auto" value="create" />
+
+                <!-- ドライバーのプロパティ -->
+                <property name="javax.persistance.jdbc.driver"
+                    value="org.h2.Driver" />
+                <property name="javax.persistance.jdbc.url"
+                    value="jdbc:h2:file:///tmp/demo" />
+                <property name="javax.persistance.jdbc.user"
+                    value="sa" />
+                <property name="javax.persistance.jdbc.password"
+                    value="" />
+        </properties>
+    </persistence-unit>
+</persistence>
