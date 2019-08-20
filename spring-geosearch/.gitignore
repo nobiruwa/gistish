@@ -32,4 +32,5 @@ out/
 .vscode/
 
 ### Project Specific ###
-data/
+/bin/
+/data/
