@@ -4,6 +4,7 @@ import Database (connect)
 import Data.Location (Geometric(..), Location(..))
 import Data.Location.Repository (findWithinAndLimit)
 import Data.MlitIsj (migrateAll)
+import Web.Location (locationHandlers)
 
 import Text.Printf (printf)
 
@@ -11,10 +12,12 @@ import Data.Monoid ()
 import Data.Char ()
 import Text.Read ()
 import Options.Applicative (progDesc, footer, header, fullDesc, info, ParserInfo, execParser, helper, help, long, switch, Parser)
+import Web.Scotty (scotty)
 
 data Options = Options
   { initA :: Bool
   , initB :: Bool
+  , example :: Bool
   } deriving Show
 
 initAParser :: Parser Bool
@@ -23,8 +26,11 @@ initAParser = switch $ long "init-a" <> help "initialize database with mlit's ty
 initBParser :: Parser Bool
 initBParser = switch $ long "init-b" <> help "initialize database with mlit's type-b isj data."
 
+exampleParser :: Parser Bool
+exampleParser = switch $ long "example" <> help "perform an example of search on CLI."
+
 optionsParser :: Parser Options
-optionsParser = (<*>) helper $ Options <$> initAParser <*> initBParser
+optionsParser = (<*>) helper $ Options <$> initAParser <*> initBParser <*> exampleParser
 
 parserInfo :: ParserInfo Options
 parserInfo = info optionsParser $ mconcat
@@ -54,11 +60,17 @@ runSearchExample = do
   where
     showLocation ((Location p c n _), d) = printf "  - %s%s%sまで%f[m]\n" p c n d
 
+runServer :: IO ()
+runServer = do
+  conn <- connect "testuser" "testuser" "127.0.0.1" "5434" "geosearch"
+  scotty 8080 (locationHandlers conn)
+
 runWithOptions :: Options -> IO ()
 runWithOptions options
   | initA options = runInitA
   | initB options = runInitB
-  | otherwise     = runSearchExample
+  | example options = runSearchExample
+  | otherwise = runServer
 
 main :: IO ()
 main = do
