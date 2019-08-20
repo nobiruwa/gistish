@@ -16,12 +16,11 @@ public interface LocationRepository extends CrudRepository<Location, Long> {
 
     Optional<Location> findById(Long id);
 
-    // @Query(value = "SELECT id, prefecture_name, city_name, town_name, ST_AsText(geometric) as geometric, ST_Distance(ST_GeographyFromText(:point), geometric) as distance FROM Location WHERE ST_DWithin(geometric, ST_GeographyFromText(:point), :within) ORDER BY distance", nativeQuery = true)
-    // List<LocationDistance> findLocationsWithin(@Param("point") String point, @Param("within") double within);
+    List<Location> findByPrefectureName(String prefectureName);
 
-    // default List<LocationDistance> findLocationsWithinByPoint(Point point, double within) {
-    //     return this.findLocationsWithin(String.format("SRID=4326;POINT(%f %f)", point.getX(), point.getY()), within);
-    // }
+    List<Location> findByPrefectureNameAndCityName(String prefectureName, String cityName);
+
+    List<Location> findByPrefectureNameAndCityNameAndTownNameContaining(String prefectureName, String cityName, String townName);
 
     @Query(nativeQuery = true, name = "locationDistance")
     List<LocationDistance> findLocationsWithin(@Param("point") String point, @Param("within") double within);

@@ -37,7 +37,18 @@ public class LocationController {
     }
 
     @RequestMapping("/location")
-    public List<LocationDistance> location(@RequestParam(value = "lon") double longitude, @RequestParam(value = "lat") double latitude, @RequestParam(value = "within") double within) {
+    public List<Location> location(@RequestParam(value = "prefecture", required = true) String prefectureName, @RequestParam(value = "city", required = false) String cityName, @RequestParam(value = "town", required = false) String townName) {
+        if (cityName != null && townName != null) {
+            return locationRepository.findByPrefectureNameAndCityNameAndTownNameContaining(prefectureName, cityName, townName);
+        } else if (cityName != null) {
+            return locationRepository.findByPrefectureNameAndCityName(prefectureName, cityName);
+        }
+
+        return locationRepository.findByPrefectureName(prefectureName);
+    }
+
+    @RequestMapping("/distance")
+    public List<LocationDistance> distance(@RequestParam(value = "lon") double longitude, @RequestParam(value = "lat") double latitude, @RequestParam(value = "within") double within) {
         Point point = new Point(longitude, latitude);
         return locationRepository.findLocationsWithinByPoint(point, within);
     }
