@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>{{{title}}}{{^title}}仮のタイトル{{/title}}</title>
+    <link href="../style/html/common.css" rel="stylesheet"/>
+    <link href="../style/html/meeting-minutes.css" rel="stylesheet"/>
+  </head>
+  <body>
+    <div class="paper">
+      <article class="content-container">
+        <div class="title-part">
+          <h1>{{{title}}}{{^title}}議事録{{/title}}</h1>
+        </div>
+        <div class="time-and-place-part">
+          <p>{{{datetime}}}{{^datetime}}1900年1月1日{{/datetime}}</p>
+          <p>{{{location}}}{{^location}}東京都北区某所{{/location}}</p>
+          <p>{{{participants}}}{{^participants}}あいつ、私{{/participants}}</p>
+        </div>
+        <div class="content">{{{contents}}}{{^contents}}aaa\nbbb{{/contents}}</div>
+      </article>
+    </div>
+  </body>
+</html>

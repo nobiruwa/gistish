@@ -45,32 +45,6 @@
 }
 ```
 
-## svg-reporter-node
-
-上記のアイディアをNode.JS上で作りました。
-
-### 起動方法
-
-```
-$ cd svg-reporter-node
-$ npm install
-$ npm run serve
-```
-
-#### curlによるPOST
-
-```
-$ curl -X POST http://localhost:3000/report -H 'Content-Type: application/json' -d '@./sample/meeting-minutes.json'
-{"svg":{"key":"5a3284e6-d18a-4655-a555-54e4ac41c155","filePath":"output/svg/5a3284e6-d18a-4655-a555-54e4ac41c155/report.svg"},"pdf":{"key":"5a3284e6-d18a-4655-a555-54e4ac41c155","filePath":"output/pdf/5a3284e6-d18a-4655-a555-54e4ac41c155/report.pdf"}}
-```
-
-#### SVGもしくはPDFのダウンロード
-
-```
-$ curl -X GET http://localhost:3000/report/5a3284e6-d18a-4655-a555-54e4ac41c155.svg
-$ curl -X GET http://localhost:3000/report/5a3284e6-d18a-4655-a555-54e4ac41c155.pdf
-```
-
 ## SVG to PDF
 
 SVGの印刷機能を用いればPDFに変換できます。ChromeでもChromiumでも、フォントやプリンターの設定(たとえば、ヘッダーとフッターを印刷しない)を施した設定ファイルをデフォルトのuser data directoryとは別に用意しておけば、SVGビューワー兼PDF作成ツールになります。

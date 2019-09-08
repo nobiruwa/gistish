@@ -1,6 +1,7 @@
-import assert from 'assert';
-import fs from 'fs';
-import path from 'path';
+/* global module:false, require:false */
+const assert = require('assert');
+const fs = require('fs');
+const path = require('path');
 
 function createDirectoryIfNotExists(path) {
   if (!fs.existsSync(path)) {
@@ -55,7 +56,7 @@ function prepare(serverConfiguration) {
   });
 }
 
-export default {
+module.exports = {
   createDirectoryIfNotExists,
   prepare,
   throwIfDirectoryAlreadyExists,

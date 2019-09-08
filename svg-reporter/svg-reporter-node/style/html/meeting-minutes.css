@@ -1,0 +1,40 @@
+body {
+}
+
+.paper {
+  height: 297mm;
+  width: 210mm;
+  /* 内側の要素を上下左右中心に据える */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.paper > * {
+  width: calc(210mm - 8mm);
+  height: calc(297mm - 8mm);
+}
+
+.paper > .content-container {
+  border: black 2px solid;
+  display: grid;
+  grid-template-columns: 50% 1fr;
+  grid-template-rows: 22.3% 1fr;
+}
+
+.paper > .content-container > .title-part {
+  border-right: black 1px solid;
+  grid-column: 1 / 2;
+  grid-row: 1 / 2;
+}
+
+.paper > .content-container > .time-and-place-part {
+  grid-column: 2 / 3;
+  grid-row: 1 / 2;
+}
+
+.paper > .content-container > .content {
+  border-top: 1px black solid;
+  grid-column: 1 / 4;
+  grid-row: 2 / 3;
+}

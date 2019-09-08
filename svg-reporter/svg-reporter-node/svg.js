@@ -1,9 +1,10 @@
-import assert from 'assert';
-import uuid from 'uuid';
-import path from 'path';
-import fs from 'fs';
-import xpath from 'xpath';
-import xmldom from 'xmldom';
+/* global module:false, require:false */
+const assert = require('assert');
+const uuid = require('uuid');
+const path = require('path');
+const fs = require('fs');
+const xpath = require('xpath');
+const xmldom = require('xmldom');
 
 const dom = xmldom.DOMParser;
 const serializer = xmldom.XMLSerializer;
@@ -178,13 +179,14 @@ function create(infra, serverConfig, request) {
           commonStyleName,
         } = serverConfig;
   const dirPath = path.join(outputDirectory, 'svg', key);
+  const svgStyleDirectory = path.join(styleDirectory, 'svg');
 
   infra.throwIfDirectoryAlreadyExists(dirPath);
 
   // TODO SVGを作成する
   const template = readTemplate(infra, templateDirectory, templateName);
-  const commonStyle = readStyle(infra, styleDirectory, commonStyleName);
-  const specificStyle = readStyle(infra, styleDirectory, templateName);
+  const commonStyle = readStyle(infra, svgStyleDirectory, commonStyleName);
+  const specificStyle = readStyle(infra, svgStyleDirectory, templateName);
   const renderedDocument = render(template, data, [commonStyle, specificStyle]);
 
   infra.createDirectoryIfNotExists(dirPath);
@@ -199,6 +201,6 @@ function create(infra, serverConfig, request) {
   };
 }
 
-export default {
+module.exports = {
   create,
 };

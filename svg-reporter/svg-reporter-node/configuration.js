@@ -1,12 +1,14 @@
-import process from 'process';
+/* global module:false, require:false */
+const process = require('process');
 
 const defaultServerConfiguration = {
   outputDirectory: 'output',
   templateDirectory: 'template',
   styleDirectory: 'style',
   commonStyleName: 'common',
+  port: 3000,
   // 固定値
-  supportFormats: ['svg', 'pdf'],
+  supportFormats: ['svg', 'pdf', 'html'],
 };
 
 function update(config, envName, propName, parse = (x) => x) {
@@ -37,6 +39,10 @@ function updateSupportFormats(config) {
   update(defaultServerConfiguration, 'SUPPORT_FORMATS', 'supportFormats', (x) => x.split(','));
 }
 
+function updatePort(config) {
+  update(defaultServerConfiguration, 'PORT', 'port', (x) => x.split(','));
+}
+
 function prepare() {
   const config = defaultServerConfiguration;
   updateOutputDirectory(config);
@@ -46,10 +52,12 @@ function prepare() {
 
   updateSupportFormats(config);
 
+  updatePort(config);
+
   return config;
 }
 
 
-export default {
+module.exports = {
   prepare,
 };
