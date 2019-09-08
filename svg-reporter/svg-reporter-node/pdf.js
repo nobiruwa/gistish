@@ -29,7 +29,6 @@ async function createPDF(url, outputFile, paperW, paperH, orientation) {
     timeout: 10000,
   });
 
-  console.log(`requiest viewport: width x height = ${paperW} x ${paperH}`);
   await page.setViewport({
     width: Math.ceil(paperW),
     height: Math.ceil(paperH),
