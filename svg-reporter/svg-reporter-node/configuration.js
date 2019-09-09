@@ -40,7 +40,7 @@ function updateSupportFormats(config) {
 }
 
 function updatePort(config) {
-  update(defaultServerConfiguration, 'PORT', 'port', (x) => x.split(','));
+  update(defaultServerConfiguration, 'PORT', 'port');
 }
 
 function prepare() {
