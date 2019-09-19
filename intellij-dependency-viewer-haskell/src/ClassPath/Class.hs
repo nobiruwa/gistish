@@ -1,9 +1,11 @@
-module ClassPath where
+module ClassPath.Class where
 
 import Types (Class)
 
 import Data.Text (Text)
 import qualified Data.Text as T
+import Codec.Binary.UTF8.String (decodeString)
+import Text.Regex.Posix ((=~))
 
 {-| クラスを定義したファイル名を返します。
 -}
@@ -14,3 +16,11 @@ onlyName = T.reverse . T.takeWhile (/= '/') . T.reverse
 -}
 onlyJarName :: Class -> Class
 onlyJarName = onlyName . T.takeWhile (/= '!')
+
+{-| 正規表現にマッチするかをテストします。
+-}
+testRegex :: Text -> Class -> Bool
+testRegex re c = decode re =~ decode c :: Bool
+  where
+    decode = decodeString . T.unpack
+

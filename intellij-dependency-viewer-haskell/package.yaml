@@ -25,8 +25,11 @@ dependencies:
 - containers
 - data-default-class
 - mustache
-- xml-conduit
+- regex-base
+- regex-posix
 - text
+- utf8-string
+- xml-conduit
 
 library:
   source-dirs: src

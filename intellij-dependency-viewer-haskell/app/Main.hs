@@ -1,7 +1,7 @@
 {-# LANGUAGE OverloadedStrings #-}
 module Main where
 
-import ClassPath (onlyJarName)
+import ClassPath.Dependency (onlyJarName, testRegex)
 import Graph (makeGraph, toDependencies)
 import IO (applyTemplate, readDependencies)
 import Template (apply)
@@ -19,6 +19,6 @@ main = do
   -- XMLを読み込み依存関係をメモリに展開する
   dependencies <- readDependencies dependenciesXmlFile
   let g = makeGraph (T.pack rootFilePath) dependencies
-  let ds = Set.map (\(Dependency from to) -> Dependency (onlyJarName from) (onlyJarName to)) (toDependencies g)
+  let ds = Set.filter (not . testRegex ".*jbr.*") $ Set.map onlyJarName (toDependencies g)
   text <- applyTemplate ["templates"] "dependency.dot" (`apply` ds)
   T.putStrLn text
