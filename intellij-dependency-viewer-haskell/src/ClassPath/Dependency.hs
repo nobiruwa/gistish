@@ -15,7 +15,12 @@ onlyName (Dependency from to) = Dependency (C.onlyName from) (C.onlyName to)
 onlyJarName :: Dependency -> Dependency
 onlyJarName (Dependency from to) = Dependency (C.onlyJarName from) (C.onlyJarName to)
 
-{-| 依存関係のエッジの両端ノードのいずれかが正規表現にマッチするかをテストします。
+{-| Dependencyのパス文字列のうち1つ以上が正規表現にマッチするかをテストします。
 -}
 testRegex :: Text -> Dependency -> Bool
 testRegex re (Dependency from to) = C.testRegex re from || C.testRegex re to
+
+{-| 正規表現によってDependencyのパス文字列を加工します。
+-}
+replaceRegex :: Text -> Dependency -> Text -> Dependency
+replaceRegex re (Dependency from to) repl = Dependency (C.replaceRegex re from repl) (C.replaceRegex re to repl)

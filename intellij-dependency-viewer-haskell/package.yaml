@@ -26,6 +26,7 @@ dependencies:
 - data-default-class
 - mustache
 - regex-base
+- regex-compat
 - regex-posix
 - text
 - utf8-string
