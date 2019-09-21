@@ -3,7 +3,6 @@ package com.example.geosearch.model;
 import javax.persistence.AttributeConverter;
 
 import com.example.geosearch.model.Point;
-import com.example.geosearch.repository.LocationRepository;
 
 public class LocationGeometricConverter implements AttributeConverter<Point, String> {
 
@@ -16,7 +15,7 @@ public class LocationGeometricConverter implements AttributeConverter<Point, Str
      * POINT(longitude latitude)という書式の文字列をPoint型に変換します。
      *
      * Locationを返すLocationRepositoryクラスのメソッドがこれを呼び出します。
-     * @see LocationRepository
+     * @see com.example.geosearch.repository.LocationRepository
      */
     @Override
     public Point convertToEntityAttribute(String dbData) {
