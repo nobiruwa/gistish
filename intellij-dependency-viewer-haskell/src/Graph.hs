@@ -14,16 +14,17 @@ makeGraph c allDeps =
   let neighbors = findRoute c Set.empty allDeps
   in Graph c neighbors
 
-findRoute :: Class -> Set Class -> Set Dependency -> Set Node
+findRoute :: Class -> Set Dependency -> Set Dependency -> Set Node
 findRoute c used allDeps =
   let neighbors = neigh c allDeps
-      newNeigh  = neighbors Set.\\ used
-      used'     = used `Set.union` neighbors
-  in Set.map (\c -> toNode c used' allDeps) newNeigh
+      edges = Set.map (Dependency c) neighbors
+      newNeigh  = Set.map dependencyTo $ edges Set.\\ used
+      newUsed     = used `Set.union` edges
+  in Set.map (\c -> toNode c newUsed allDeps) newNeigh
   where
     neigh c = Set.map dependencyTo . Set.filter ((==) c . dependencyFrom)
 
-toNode :: Class -> Set Class -> Set Dependency -> Node
+toNode :: Class -> Set Dependency -> Set Dependency -> Node
 toNode c used all = Node c (findRoute c used all)
 
 toDependencies :: Graph -> Set Dependency
