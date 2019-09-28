@@ -1,2 +1,5 @@
 rootca/
 intermediateca/
+
+openssl.cnf
+san.ext

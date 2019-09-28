@@ -1,34 +1,16 @@
-# directory
-DIR=rootca
-CERTS_DIR=$DIR/certs
-CRL_DIR=$DIR/crl
-NEW_CERTS_DIR=$DIR/newcerts
-PRIVATE_KEY_DIR=$DIR/private
-# file
-DATABASE=$DIR/index.txt
-DATABASE_ATTR=$DIR/index.txt.attr
-CSR=$DIR/cacert.csr
-CERTIFICATE=$DIR/cacert.pem
-SERIAL=$DIR/serial
-CRLNUMBER=$DIR/crlnumber
-CRL=$DIR/crl.pem
-PRIVATE_KEY=$DIR/private/cakey.pem
-PRIVATE_KEY_NOPASS=$PRIVATE_KEY_DIR/cakey-nopass.pem
-RANDFILE=$DIR/private/.rand
-CONFIG=./openssl.cnf
-EXTFILE=./san.ext
+#!/usr/bin/env bash
 
 # create directories
-mkdir -p $DIR
-mkdir -p $CERTS_DIR
-mkdir -p $CRL_DIR
-mkdir -p $NEW_CERTS_DIR
-mkdir -p $PRIVATE_KEY_DIR
+mkdir -p "$ROOTCA_DIR"
+mkdir -p "$ROOTCA_CERTS_DIR"
+mkdir -p "$ROOTCA_CRL_DIR"
+mkdir -p "$ROOTCA_NEW_CERTS_DIR"
+mkdir -p "$ROOTCA_PRIVATE_KEY_DIR"
 
 # # create empty files
-touch $DATABASE
-touch $DATABASE_ATTR
-echo 00 > $SERIAL
+touch "$ROOTCA_DATABASE"
+touch "$ROOTCA_DATABASE_ATTR"
+echo 00 > "$ROOTCA_SERIAL"
 # touch $CRLNUMBER
 # touch $CRL
 # touch $PRIVATE_KEY
