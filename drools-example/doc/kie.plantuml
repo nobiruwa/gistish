@@ -1,0 +1,30 @@
+@startuml kie
+
+package org.kie.api {
+        class KieBase
+        class KieServices
+}
+
+package org.kie.api.definition.process {
+        class Process
+}
+
+package org.kie.api.definition.rule {
+        class Rule
+}
+
+package org.kie.api.runtime {
+        class KieContainer
+        class KieSession
+}
+
+KieServices *- KieContainer
+
+KieContainer *- KieBase
+KieContainer *- KieSession
+
+KieBase --> Process
+KieBase --> Rule
+KieBase --> KieSession
+
+@enduml
