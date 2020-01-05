@@ -23,6 +23,7 @@ repositories {
 dependencies {
     // This dependency is used by the application.
     implementation 'com.google.guava:guava:28.0-jre'
+    implementation 'com.h2database:h2:1.4.200'
 
     compileOnly 'javax:javaee-api:7.0'
 

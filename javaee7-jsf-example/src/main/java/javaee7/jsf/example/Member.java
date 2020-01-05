@@ -15,6 +15,14 @@ public class Member {
 
     private String accountName;
 
+    public Member() {
+    }
+
+    public Member(Long id, String accountName) {
+        this.id = id;
+        this.accountName = accountName;
+    }
+
     public Long getId() {
         return id;
     }
