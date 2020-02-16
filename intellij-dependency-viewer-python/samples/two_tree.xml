@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<root isBackward="false">
+  <file path="$PROJECT_DIR$/src/main/java/org/example/layer1/Root1.java">
+    <dependency path="$PROJECT_DIR$/src/main/java/org/example/layer2/Child1.java" />
+    <dependency path="$PROJECT_DIR$/src/main/java/org/example/layer2/Child2.java" />
+    <!-- jarへの参照が削除されることを確認するテスト -->
+    <dependency path="$USER_HOME$/dockers/jdk8/.gradle/caches/modules-2/files-2.1/javax.websocket/javax.websocket-api/1.1/c2c8923b5cc02e5ff9eb100fc718b582efb164e2/javax.websocket-api-1.1-sources.jar!/javax/websocket/Session.java" />
+  </file>
+  <file path="$PROJECT_DIR$/src/main/java/org/example/layer1/Root2.java">
+    <dependency path="$PROJECT_DIR$/src/main/java/org/example/layer2/Child3.java" />
+  </file>
+  <file path="$PROJECT_DIR$/src/main/java/org/example/layer2/Child1.java">
+    <dependency path="$PROJECT_DIR$/src/main/java/org/example/layer3/GrandChild2.java" />
+  </file>
+  <file path="$PROJECT_DIR$/src/main/java/org/example/layer2/Child2.java">
+    <dependency path="$PROJECT_DIR$/src/main/java/org/example/layer3/GrandChild1.java" />
+    <dependency path="$PROJECT_DIR$/src/main/java/org/example/layer3/GrandChild3.java" />
+  </file>
+  <file path="$PROJECT_DIR$/src/main/java/org/example/layer2/Child3.java">
+    <dependency path="$PROJECT_DIR$/src/main/java/org/example/layer2/Child2.java" />
+    <dependency path="$PROJECT_DIR$/src/main/java/org/example/layer3/GrandChild3.java" />
+  </file>
+  <file path="$PROJECT_DIR$/src/main/java/org/example/layer2/GrandChild1.java">
+  </file>
+  <file path="$PROJECT_DIR$/src/main/java/org/example/layer2/GrandChild2.java">
+  </file>
+  <file path="$PROJECT_DIR$/src/main/java/org/example/layer2/GrandChild3.java">
+  </file>
+</root>
+

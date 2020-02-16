@@ -1,0 +1,55 @@
+@startuml
+
+package core {
+        class Dependency
+}
+
+package networkx {
+        class Graph
+}
+
+package transform {
+        class Transformer
+
+        ' extenal
+        Graph <-- Transformer
+        Dependency <-- Transformer
+}
+
+package reader {
+        class Reader
+
+        ' external
+        Dependency <-- Reader
+}
+
+package writer {
+        class Writer
+
+        ' external
+        Graph <-- Writer
+}
+
+package core.executor {
+        class Executor
+
+        ' external
+        Reader <-- Executor
+        Graph  <-- Executor
+        Writer <-- Executor
+}
+
+package concrete {
+        class ConcreteReader
+        class ConcreteTransformer
+        class ConcreteWriter
+        class Main
+
+        ' external
+        Reader <|- ConcreteReader
+        Transformer <|- ConcreteTransformer
+        Writer <|- ConcreteWriter
+        Executor <|- Main
+}
+
+@enduml
