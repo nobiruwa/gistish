@@ -7,10 +7,12 @@ import networkx as nx
 try:
     import pygraphviz
     from networkx.drawing.nx_agraph import graphviz_layout
+    import networkx.drawing.nx_agraph as drawing
 except ImportError:
     try:
         import pydot
         from networkx.drawing.nx_pydot import graphviz_layout
+        import networkx.drawing.nx_pydot as drawing
     except ImportError:
         raise ImportError("This example needs Graphviz and either "
                           "PyGraphviz or pydot")
@@ -30,3 +32,15 @@ def draw_dot(graph, file_path):
     plt.axis('equal')
 
     plt.savefig(file_path)
+
+def write_dot(graph, file_path, global_config=None):
+    drawing.write_dot(graph, file_path)
+
+    if global_config is not None:
+        with open(file_path) as f:
+            contents = f.readlines()
+
+        contents.insert(1, global_config + '\n')
+
+        with open(file_path, 'w') as f:
+            f.write(''.join(contents))
