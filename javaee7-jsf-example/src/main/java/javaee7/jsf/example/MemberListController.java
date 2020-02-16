@@ -18,6 +18,7 @@ public class MemberListController {
 
     // (JSFに対して)供給するBean
     // メンバーの一覧
+    // getを取り除くとMembers、これはJSFにmembersインスタンスを提供する
     @Named
     @Produces
     public List<Member> getMembers() {

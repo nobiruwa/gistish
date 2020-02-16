@@ -9,7 +9,11 @@
   lang="en"
   >
   <ui:define name="content">
-    #{newMember}
+    <div>newMember: #{newMember}</div>
+    <div>reloadController: #{reloadController}</div>
+    <div>reloadController.logger: #{reloadController.logger}</div>
+    <div>cat: #{cat}</div>
+    <div>dog: #{dog}</div>
     <h:panelGroup rendered="#{empty members}">
       <em>No registered members.</em>
     </h:panelGroup>
@@ -23,5 +27,9 @@
         #{_member.accountName}
       </h:column>
     </h:dataTable>
+    <!-- commandButtonの例 -->
+    <h:form>
+      <h:commandButton value="submit" type="submit" action="#{reloadController.reload()}"/>
+    </h:form>
   </ui:define>
 </ui:composition>
