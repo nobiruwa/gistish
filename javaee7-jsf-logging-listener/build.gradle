@@ -9,7 +9,10 @@
 plugins {
     // Apply the java-library plugin to add support for Java Library
     id 'java-library'
+
+    id 'war'
 }
+
 
 repositories {
     // Use jcenter for resolving dependencies.
@@ -23,7 +26,19 @@ dependencies {
 
     // This dependency is used internally, and not exposed to consumers on their own compile classpath.
     implementation 'com.google.guava:guava:27.1-jre'
+    implementation 'com.h2database:h2:1.4.200'
+
+    providedCompile 'javax:javaee-api:7.0'
 
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
+}
+
+sourceSets {
+    main.java.srcDirs += 'src/main/webapp'
+}
+
+compileJava {
+    targetCompatibility = '1.8'
+    sourceCompatibility = '1.8'
 }

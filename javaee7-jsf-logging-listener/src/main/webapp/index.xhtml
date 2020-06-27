@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:f="http://java.sun.com/jsf/core"
+  template="/WEB-INF/templates/default.xhtml"
+  xml:lang="en"
+  lang="en"
+  >
+  <ui:define name="content">
+    <div>newMember: #{newMember}</div>
+    <div>reloadController: #{reloadController}</div>
+    <div>reloadController.logger: #{reloadController.logger}</div>
+    <div>cat: #{cat}</div>
+    <div>dog: #{dog}</div>
+    <h:panelGroup rendered="#{empty members}">
+      <em>No registered members.</em>
+    </h:panelGroup>
+    <h:dataTable var="_member" value="#{members}" rendered="#{not empty members}" styleClass="table table-striped table-bordered">
+      <h:column>
+        <f:facet name="header">Id</f:facet>
+        #{_member.id}
+      </h:column>
+      <h:column>
+        <f:facet name="header">Name</f:facet>
+        #{_member.accountName}
+      </h:column>
+    </h:dataTable>
+    <!-- commandButtonの例 -->
+    <h:form>
+      <h:commandButton value="submit" type="submit" action="#{reloadController.reload()}"/>
+    </h:form>
+  </ui:define>
+</ui:composition>
