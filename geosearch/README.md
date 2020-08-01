@@ -8,11 +8,11 @@
 
 ## PostgreSQLの準備
 
-PostgreSQL 11がport 5434で動作しているとします。
+PostgreSQL 12がport 5435で動作しているとします。
 
 ```
-$ sudo -u postgres createuser -p 5434 -W testuser
-$ sudo -u postgres psql -p 5434
+$ sudo -u postgres createuser -p 5435 -W testuser
+$ sudo -u postgres psql -p 5435
 postgres=# alter user testuser with encrypted password 'testuser';
 ```
 
@@ -22,9 +22,9 @@ postgres=# alter user testuser with encrypted password 'testuser';
   - GPLv2
   - <https://postgis.net>
   - `# apt-get install postgis`
-    - work with PostgreSQL 11
-    - 2.5+
-      - <https://postgis.net/stuff/postgis-2.5.pdf>
+    - work with PostgreSQL 12
+    - 3.0+
+      - <https://postgis.net/stuff/postgis-3.0.pdf>
 
 ## table
 
@@ -134,8 +134,9 @@ geosearch=> \i ./sql/create-postal_ken_all.sql
 
 ```
 $ stack ghci
-*> conn <- connect "testuser" "testuser" "127.0.0.1" "5434" "geosearch"
-*> migrate conn "data/mlit_isj/h30/13000-12.0b/13_2018.csv"
+*> conn <- connect "testuser" "testuser" "127.0.0.1" "5435" "geosearch"
+*> Data.MlitIsj.migrate conn "data/mlit_isj/h30/13000-12.0b/13_2018.csv"
+*> Data.Postal.migrate conn "data/postal/KEN_ALL.CSV"
 ```
 
 ## misc
