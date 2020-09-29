@@ -1,0 +1,6 @@
+- [Steps to configure Kerberos / SPNEGO / NTLM authentication with Weblogic Server running on Oracle JDK :](https://blogs.oracle.com/blogbypuneeth/steps-to-configure-kerberos-spnego-ntlm-authentication-with-weblogic-server-running-on-oracle-jdk-:)ここが一番役に立ちました。
+  - `kinit`はOracle JDKツールの1つです。ほかにも`kinit`があるようですのでPATHにはOracle JDKの`bin`を優先して設定することが大切です。
+  - ここにあるwebapp.warの要求する`krb5Login.conf`(JAASのログイン構成ファイル)は改行場所が独特です。
+    - また、`krb5Login.conf`でのファイルパスはバックスラッシュ1個ではなくスラッシュ(`/`)区切りにする必要がありました。
+  - デフォルトのレルムである`myrealm`のプロバイダの順序を`ActiveDirectoryAuthenticator->DefaultAuthenticator->DefaultIdentityAsserter->IdentityNegotiateAsserter`とすることが大切です。
+- 試行する前に、IE11を起動するPCで[klist purge](https://www.oracle.com/technical-resources/articles/middleware/idm-weblogic-sso-kerberos.html)を実行することが大切でした。

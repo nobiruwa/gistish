@@ -1,0 +1,11 @@
+<?xml version = '1.0' encoding = 'windows-1252'?>
+<weblogic-web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.bea.com/ns/weblogic/weblogic-web-app http://www.bea.com/ns/weblogic/weblogic-web-app/1.0/weblogic-web-app.xsd" xmlns="http://www.bea.com/ns/weblogic/weblogic-web-app">
+  <context-root>SPNEGOcheck</context-root>
+  <security-role-assignment>
+    <role-name>everyone</role-name>
+    <principal-name>webclient</principal-name>
+    <principal-name>webserver</principal-name>
+    <principal-name>administrator</principal-name>
+    <principal-name>bohabx</principal-name>
+  </security-role-assignment>
+</weblogic-web-app>
