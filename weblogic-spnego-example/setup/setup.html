@@ -1,0 +1,283 @@
+<h1 id="ssoのセットアップ">SSOのセットアップ</h1>
+<ul>
+<li>Web/APサーバーのADユーザー名
+<ul>
+<li>[:weblogic:]</li>
+</ul></li>
+<li>Web/APサーバーのWebLogicサーバーを表すサービス名
+<ul>
+<li>[:webserver:]</li>
+</ul></li>
+<li>ドメイン名
+<ul>
+<li>[:mydomain.com:]</li>
+</ul></li>
+<li>ドメインコントローラー
+<ul>
+<li>[:pdc.mydomain.com:]</li>
+</ul></li>
+<li>デプロイしたアプリケーション
+<ul>
+<li>[:webapp:]</li>
+</ul></li>
+</ul>
+<h2 id="pdcadユーザーの作成">[pdc]ADユーザーの作成</h2>
+<p>ドメインコントローラーにて、Web/APサーバーを表すユーザー[:weblogic:]を作成します。</p>
+<figure>
+<img src="./pdc01.PNG" alt="" /><figcaption>ADアカウントの状態</figcaption>
+</figure>
+<p>上の図において「weblogicのプロパティ」がWeb/APサーバーを表すユーザーです。 なお、「HTTP/webserver」となっている箇所は[:weblogic:]としてください(後述の<code>ktpass</code>コマンドの実行により<code>HTTP/webserver</code>に変更されます)。</p>
+<h3 id="注意点">注意点</h3>
+<ul>
+<li>ADでのアカウントの種類が「コンピューター」ではなく「ユーザー」であることに注意してください。</li>
+<li>アカウント オプションでは、パスワードの有効期限を無期限に設定してください。</li>
+<li>アカウント オプションでは、「このアカウントで Kerberos AES 128ビット暗号化をサポートする」を有効にしてください。</li>
+<li>アカウント オプションでは、「このアカウントで Kerberos AES 256ビット暗号化をサポートする」を有効にしてください。</li>
+<li>アカウント オプションでは、DESの暗号化を無効にしてください。</li>
+</ul>
+<h2 id="webserverkrb.iniを作りwebapサーバーのcwindowsに配置する">[webserver]krb.iniを作りWeb/APサーバーの<code>C:\Windows</code>に配置する</h2>
+<p>Web/APサーバーに、以下の内容の<code>C:\Windows\krb5.ini</code>を作成してください。</p>
+<pre><code>[libdefaults]
+default_realm = [:MYDOMAIN.COM:]
+ticket_lifetime = 600
+allow_weak_crypto = true
+
+[realms]
+
+[:MYDOMAIN.COM:] = {
+kdc = [:pdc.mydomain.com:]
+admin_server = [:pdc.mydomain.com:]
+default_domain = [:MYDOMAIN.COM:]
+}
+
+[domain_realm]
+.[:mydomain.com:] = [:MYDOMAIN.COM:]
+[:mydomain.com:] = [:MYDOMAIN.COM:]
+
+[appdefaults]
+autologin = true
+forward = true
+forwardable = true
+encrypt = true</code></pre>
+<h2 id="webservercwindowskrb5.iniの内容の検証">[webserver]<code>C:\Windows\krb5.ini</code>の内容の検証</h2>
+<p><code>C:\Windows\krb5.ini</code>の内容が正しいことを確認するために、Web/APサーバーでOracle JDKに同梱されている<code>kinit</code>コマンドを以下のように実行してください。</p>
+<pre><code>&gt; kinit [:weblogic:]
+Password for [:weblogic:]@[:MYDOMAIN.COM:]:
+New ticket is stored in cache file C:\Users\&lt;実行中のユーザー&gt;\krb5cc_&lt;実行中のユーザー名&gt;</code></pre>
+<p>もしくは</p>
+<pre><code>&gt; kinit [:weblogic:]@[:MYDOMAIN.COM:]
+Password for [:weblogic:]@[:MYDOMAIN.COM:]:
+New ticket is stored in cache file C:\Users\&lt;実行中のユーザー&gt;\krb5cc_&lt;実行中のユーザー名&gt;</code></pre>
+<p><code>kinit</code>コマンド実行の結果生成される<code>C:\Users\&lt;実行中のユーザー&gt;\krb5cc_&lt;実行中のユーザー名&gt;</code>は削除してください。</p>
+<h2 id="pdcspnの作成">[pdc]SPNの作成</h2>
+<p>ドメインコントローラーにて、ADユーザー[:weblogic:]に対してSPN(Service Provider Name)を割り当てます。</p>
+<p><code>setspn</code>コマンドのシンタックスは以下の通りです。</p>
+<pre><code>&gt; setspn -S HTTP/&lt;WebLogicサーバー名&gt;@&lt;ドメイン名大文字&gt; &lt;ADユーザー名&gt;</code></pre>
+<p><code>setspn</code>コマンドを以下のように実行してください。</p>
+<pre><code>&gt; setspn -S HTTP/[:webserver:] [:weblogic:]
+&gt; setspn -S HTTP/[:webserver:]@[:MYDOMAIN.COM:] [:weblogic:]
+&gt; setspn -S HTTP/[:webserver:].[:mydomain.com:] [:weblogic:]
+&gt; setspn -S HTTP/[:webserver:].[:mydomain.com:]@[:MYDOMAIN.COM:] [:weblogic:]</code></pre>
+<p>SPN割り当ての確認は<code>setspn -L</code>コマンドを使用します。</p>
+<pre><code>&gt; setspn -L webserver
+次の項目に登録されている CN=[:weblogic:],CN=Users,DC=[:mydomain:],DC=[:com:]:
+        HTTP/[:webserver:].[:mydomain.com:]
+        HTTP/[:webserver:]
+        HTTP/[:webserver:]@[:MYDOMAIN.COM:]
+        HTTP/[:webserver:].[:mydomain.com:]@[:MYDOMAIN.COM:]</code></pre>
+<h2 id="pdckeytabファイルの作成とwebapサーバーへのコピー">[pdc]<code>keytab</code>ファイルの作成とWeb/APサーバーへのコピー</h2>
+<p>ドメインコントローラーにて、<code>keytab</code>ファイルを作成します。<code>ktpass</code>コマンドを以下のように実行してください。</p>
+<pre><code>&gt; ktpass -princ HTTP/[:webserver:]@[:MYDOMAIN.COM:] -mapuser [:weblogic:] -pass [:password:] -crypto all -kvno 0 -ptype KRB5_NT_PRINCIPAL -out http-[:webserver:].[:mydomain.com:]-ktpass.keytab</code></pre>
+<p><code>ktpass</code>コマンドの実行に成功した後、ADユーザー[:weblogic:]のログオン名が<code>HTTP/[:webserver:]</code>に変更されていることを確認してください。</p>
+<figure>
+<img src="./pdc01.PNG" alt="" /><figcaption>ADアカウントの状態</figcaption>
+</figure>
+<h2 id="webserverkeytabファイルの内容の検証">[webserver]<code>keytab</code>ファイルの内容の検証</h2>
+<p>ドメインコントローラーで作成した<code>http-[:webserver:].[:mydomain.com:]-ktpass.keytab</code>を、 Web/APサーバーにコピーしてください。ここでは<code>D:\pp\weblogic\http-[:webserver:].[:mydomain.com:]-ktpass.keytab</code>とします。</p>
+<p>Web/APサーバーにて、<code>http-[:webserver:].[:mydomain.com:]-ktpass.keytab</code>ファイルの内容の検証を行います。 <code>klist</code>コマンドを以下のように実行してください。</p>
+<pre><code>&gt; klist -e -k http-[:webserver:].[:mydomain.com:]-ktpass.keytab</code></pre>
+<p><code>HTTP/[:webserver:]@[:mydomain.com:]</code>のエントリーが(複数)存在していればkeytabファイルとして正常です。</p>
+<h2 id="webserverkrb5login.confファイルの作成と配置">[webserver]<code>krb5Login.conf</code>ファイルの作成と配置</h2>
+<p>Web/APサーバーにて、以下の内容の<code>krb5Login.conf</code>を適当なフォルダに配置してください。 ここでは<code>D:\pp\weblogic\krb5Login.conf</code>とします。</p>
+<pre><code>com.sun.security.jgss.initiate {
+  com.sun.security.auth.module.Krb5LoginModule required principal=&quot;HTTP/[:webserver:]@[:MYDOMAIN.COM:]&quot; useKeyTab=&quot;true&quot; keyTab=&quot;D:/pp/weblogic/http-[:webserver:].[:mydomain.com:]-ktpass.keytab&quot;
+  storeKey=&quot;true&quot; debug=&quot;true&quot;;
+};
+com.sun.security.jgss.krb5.accept {
+  com.sun.security.auth.module.Krb5LoginModule required principal=&quot;HTTP/[:webserver:]@[:MYDOMAIN.COM:]&quot; useKeyTab=&quot;true&quot; keyTab=&quot;D:/pp/weblogic/http-[:webserver:].[:mydomain.com:]-ktpass.keytab&quot;
+  storeKey=&quot;true&quot; debug=&quot;true&quot;;
+};</code></pre>
+<p><code>krb5Login.conf</code>のパース処理はかなりパースエラーを起こしやすいため、改行の位置とスペースの数は上記に従って厳密に再現してください。</p>
+<h2 id="webserver-dパラメータの追加">[webserver]<code>-D</code>パラメータの追加</h2>
+<p><code>D:\pp\Oracle\Middleware\Oracle_Home\user_projects\domains\base_domain\startWebLogic.cmd</code>に以下の1行を追加してください。</p>
+<pre><code>set JAVA_OPTIONS=%JAVA_OPTIONS% -Djavax.security.auth.useSubjectCredsOnly=false -Djava.security.auth.login.config=D:\pp\weblogic\krb5Login.conf -Djava.security.krb5.conf=C:\Windows\krb5.ini -Dweblogic.security.enableNegotiate=true -Dsun.security.krb5.debug=true</code></pre>
+<p>挿入位置は以下を参考にしてください。</p>
+<pre><code>@REM *************************************************************************
+@REM This script is used to start WebLogic Server for this domain.
+@REM 
+@REM To create your own start script for your domain, you can initialize the
+@REM environment by calling @USERDOMAINHOME\setDomainEnv.
+@REM 
+@REM setDomainEnv initializes or calls commEnv to initialize the following variables:
+@REM 
+@REM BEA_HOME       - The BEA home directory of your WebLogic installation.
+@REM JAVA_HOME      - Location of the version of Java used to start WebLogic
+@REM                  Server.
+@REM JAVA_VENDOR    - Vendor of the JVM (i.e. BEA, HP, IBM, Sun, etc.)
+@REM PATH           - JDK and WebLogic directories are added to system path.
+@REM WEBLOGIC_CLASSPATH
+@REM                - Classpath needed to start WebLogic Server.
+@REM PATCH_CLASSPATH - Classpath used for patches
+@REM PATCH_LIBPATH  - Library path used for patches
+@REM PATCH_PATH     - Path used for patches
+@REM WEBLOGIC_EXTENSION_DIRS - Extension dirs for WebLogic classpath patch
+@REM JAVA_VM        - The java arg specifying the VM to run.  (i.e.
+@REM                - server, -hotspot, etc.)
+@REM USER_MEM_ARGS  - The variable to override the standard memory arguments
+@REM                  passed to java.
+@REM PRODUCTION_MODE - The variable that determines whether Weblogic Server is started in production mode.
+@REM DERBY_HOME - Derby home directory.
+@REM DERBY_CLASSPATH
+@REM                - Classpath needed to start Derby.
+@REM 
+@REM Other variables used in this script include:
+@REM SERVER_NAME    - Name of the weblogic server.
+@REM JAVA_OPTIONS   - Java command-line options for running the server. (These
+@REM                  will be tagged on to the end of the JAVA_VM and
+@REM                  MEM_ARGS)
+@REM PROXY_SETTINGS - These are tagged on to the end of the JAVA_OPTIONS. This variable is deprecated and should not
+@REM                  be used. Instead use JAVA_OPTIONS
+@REM 
+@REM For additional information, refer to &quot;Administering Server Startup and Shutdown for Oracle WebLogic Server&quot;
+@REM *************************************************************************
+set JAVA_OPTIONS=%JAVA_OPTIONS% -Djavax.security.auth.useSubjectCredsOnly=false -Djava.security.auth.login.config=D:\pp\weblogic\krb5Login.conf -Djava.security.krb5.conf=C:\Windows\krb5.ini -Dweblogic.security.enableNegotiate=true -Dsun.security.krb5.debug=true
+set SCRIPTPATH=%~dp0
+set SCRIPTPATH=%SCRIPTPATH%
+for %%i in (&quot;%SCRIPTPATH%&quot;) do set SCRIPTPATH=%%~fsi</code></pre>
+<h2 id="webserverweblogicコンソールでのセキュリティレルムの設定">[webserver]WebLogicコンソールでのセキュリティ・レルムの設定</h2>
+<p>グローバルなセキュリティ・レルム<code>myrealm</code>を追加します。</p>
+<p>WebLogicコンソールにログインし、左ペインからbase_domain→セキュリティ・レルムを開いてください。</p>
+<p>新規ボタンを押下してください。</p>
+<p>新しいレルムの名前を<code>myrealm</code>としてください。</p>
+<p><code>myrealm</code>の設定を開いて、以下の通りの設定内容であることを確認してください。</p>
+<p><code>myrealm</code>のプロバイダタブを開き、Active Directoryプロバイダを追加してください。 名称は<code>ActiveDirectoryAuthenticator</code>、タイプは<code>ActiveDirectoryAuthenticator</code>としてください。</p>
+<p>次に、<code>myrealm</code>のプロバイダタブからNegotiateIdentityAsserterプロバイダを追加してください。 名称は<code>SPNEGO</code>、タイプは<code>NegotiateIdentityAsserter</code>としてください。</p>
+<h2 id="webserveractive-directory-providerの設定">[webserver]Active Directory Providerの設定</h2>
+<p>制御フラグは<code>OPTIONAL</code>に設定します。</p>
+<figure>
+<img src="./webserver02.PNG" alt="" /><figcaption>ActiveDirectoryAuthenticatorの共通タブの設定</figcaption>
+</figure>
+<p>ActiveDirectoryAuthenticatorのプロバイダ固有タブを開き、以下の通り設定してください。</p>
+<ul>
+<li>ホスト
+<ul>
+<li>[:pdc.mydomain.com:]</li>
+</ul></li>
+<li>ポート
+<ul>
+<li>389</li>
+</ul></li>
+<li>プリンシパル
+<ul>
+<li>[:weblogic:]</li>
+</ul></li>
+<li>資格証明
+<ul>
+<li>&lt;[:weblogic:]のパスワード&gt;</li>
+</ul></li>
+<li>資格証明の確認
+<ul>
+<li>&lt;[:weblogic:]のパスワード&gt;</li>
+</ul></li>
+</ul>
+<p>「ユーザー」セクションでは以下の通り設定してください。</p>
+<ul>
+<li>ユーザー・ベースDN
+<ul>
+<li><code>cn=Users,dc=[:mydomain:],dc=[:com:]</code></li>
+<li>ユーザーを管理するロケーションに合わせて変更してください。</li>
+</ul></li>
+<li>名前指定によるユーザー・フィルタ
+<ul>
+<li><code>(&amp;(sAMAccountName=%u)(objectclass=user))</code></li>
+</ul></li>
+<li>ユーザー名属性
+<ul>
+<li><code>sAMAccountName</code></li>
+</ul></li>
+<li>ユーザーオブジェクトクラス
+<ul>
+<li><code>user</code></li>
+</ul></li>
+</ul>
+<p>「グループ」セクションでは以下の通り設定してください。</p>
+<ul>
+<li>グループ・ベースDN
+<ul>
+<li><code>cn=Users,dc=[:mydomain:],dc=[:com:]</code></li>
+</ul></li>
+<li>名前指定によるグループ・フィルタ
+<ul>
+<li><code>(&amp;(cn=%g)(objectclass=group))</code></li>
+</ul></li>
+</ul>
+<p>「静的グループ」セクションでは以下の通り設定してください。</p>
+<ul>
+<li>静的グループ名属性 <code>cn</code></li>
+<li>静的グループ・オブジェクト・クラス
+<ul>
+<li><code>group</code></li>
+</ul></li>
+<li>静的メンバーDN属性 <code>member</code></li>
+<li>メンバーDN指定による静的グループDNフィルタ
+<ul>
+<li><code>(&amp;(member=%M)(objectclass=group))</code></li>
+</ul></li>
+</ul>
+<figure>
+<img src="./webserver03.PNG" alt="" /><figcaption>ActiveDirectoryAutuenticatorのプロバイダ固有の設定</figcaption>
+</figure>
+<p>設定後、保存ボタンを押下してください。</p>
+<h2 id="webservernegotiateidentityasserterの設定">[webserver]NegotiateIdentityAsserterの設定</h2>
+<p>共通タブを開き、アクティブなタブの「WWW-Authenticate.Negotiate」と「Authorization.Negotiate」を使用可能欄から選択済みへと移動してください。</p>
+<figure>
+<img src="./webserver04.PNG" alt="" /><figcaption>NegotiateIdentityAsserterの設定</figcaption>
+</figure>
+<p>プロバイダ固有タブを開き、以下の通りに設定してください。</p>
+<figure>
+<img src="./webserver05.PNG" alt="" /><figcaption>SPNEGOの設定</figcaption>
+</figure>
+<p>設定後、保存ボタンを押下してください。</p>
+<h2 id="webserverwebアプリケーションのweblogic.xmlの設定">[webserver]Webアプリケーションのweblogic.xmlの設定</h2>
+<p>デプロイメントされた[:webapp:]のweblogic.xmlに対して、以下のように<code>&lt;security-role-assignment&gt;</code>要素を追加します。</p>
+<pre><code>&lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&gt;
+&lt;weblogic-web-app xmlns=&quot;http://xmlns.oracle.com/weblogic/weblogic-web-app&quot;
+                  xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+                  xsi:schemaLocation=&quot;http://xmlns.oracle.com/weblogic/weblogic-web-app http://xmlns.oracle.com/weblogic/weblogic-web-app/1.0/weblogic-web-app.xsd&quot;&gt;
+  &lt;security-role-assignment&gt;
+    &lt;role-name&gt;operator&lt;/role-name&gt;
+    &lt;principal-name&gt;operators&lt;/principal-name&gt;
+  &lt;/security-role-assignment&gt;
+&lt;/weblogic-web-app&gt;</code></pre>
+<p>…</p>
+<h2 id="webserverweb.xmlの設定">[webserver]web.xmlの設定</h2>
+<p>デプロイメントされた[:webapp:]のweb.xmlに対して、以下のように<code>&lt;security-constraint&gt;</code>要素、<code>&lt;login-config&gt;</code>要素、<code>&lt;security-role&gt;</code>要素を追加します。</p>
+<pre><code>  &lt;security-constraint&gt;
+    &lt;display-name&gt;Operator Access&lt;/display-name&gt;
+    &lt;web-resource-collection&gt;
+      &lt;web-resource-name&gt;SampleTestServlet&lt;/web-resource-name&gt;
+      &lt;url-pattern&gt;/faces&lt;/url-pattern&gt;
+    &lt;/web-resource-collection&gt;
+    &lt;auth-constraint&gt;
+      &lt;role-name&gt;operator&lt;/role-name&gt;
+    &lt;/auth-constraint&gt;
+  &lt;/security-constraint&gt;
+
+  &lt;login-config&gt;
+    &lt;auth-method&gt;CLIENT-CERT&lt;/auth-method&gt;
+  &lt;/login-config&gt;
+
+  &lt;security-role&gt;
+    &lt;description&gt;security-role operator&lt;/description&gt;
+    &lt;role-name&gt;operator&lt;/role-name&gt;
+  &lt;/security-role&gt;</code></pre>
