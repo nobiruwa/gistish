@@ -1,0 +1,18 @@
+[
+  {
+    "name": "weblogic.xml",
+    "path": "WEB-INF/weblogic.xml"
+  },
+  {
+    "name": "mybatis-config.xml",
+    "path": "WEB-INF/classes/mybatis-config.xml"
+  },
+  {
+    "name": "a.properties",
+    "path": "WEB-INF/classes/jp/co/example/resources/a.properties"
+  },
+  {
+    "name": "system.properties",
+    "path": "WEB-INF/classes/jp/co/example/resources/system.properties"
+  }
+]
