@@ -5,15 +5,15 @@
 
 packages:
 - completed:
-    hackage: HDBC-postgresql-2.3.2.6@sha256:6e1636b0414ae7b028a01f1a90cf3e28c14f1df7867cf2615d5357d9abcd6279,3164
+    hackage: HDBC-postgresql-2.5.0.0@sha256:10ceb4f456bbd4768a3f0ab425d9b4d40cb0e17992083b881b37fe5d91b58aba,3050
     pantry-tree:
-      size: 1740
-      sha256: 447f1893e85d46f3f1c5e8b43ed46e4ff9563223c2ae0b6b78de624a9f0563c1
+      size: 1611
+      sha256: 9db472e5f433c07d097b6cdc6af354d0a40c0fd3c7205510973380ced739c764
   original:
-    hackage: HDBC-postgresql-2.3.2.6@sha256:6e1636b0414ae7b028a01f1a90cf3e28c14f1df7867cf2615d5357d9abcd6279,3164
+    hackage: HDBC-postgresql-2.5.0.0@sha256:10ceb4f456bbd4768a3f0ab425d9b4d40cb0e17992083b881b37fe5d91b58aba,3050
 snapshots:
 - completed:
-    size: 524996
-    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/14/27.yaml
-    sha256: 7ea31a280c56bf36ff591a7397cc384d0dff622e7f9e4225b47d8980f019a0f0
-  original: lts-14.27
+    size: 565266
+    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/17/5.yaml
+    sha256: 78e8ebabf11406261abbc95b44f240acf71802630b368888f6d758de7fc3a2f7
+  original: lts-17.5

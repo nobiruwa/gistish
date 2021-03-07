@@ -17,7 +17,7 @@
 #
 # resolver: ./custom-snapshot.yaml
 # resolver: https://example.com/snapshots/2018-01-01.yaml
-resolver: lts-14.27
+resolver: lts-17.5
 
 # User packages to be built.
 # Various formats can be used as shown in the example below.
@@ -40,7 +40,8 @@ packages:
 #   commit: e7b331f14bcffb8367cd58fbfc8b40ec7642100a
 #
 # extra-deps: []
-extra-deps: ["HDBC-postgresql-2.3.2.6@sha256:6e1636b0414ae7b028a01f1a90cf3e28c14f1df7867cf2615d5357d9abcd6279,3164"]
+extra-deps:
+- HDBC-postgresql-2.5.0.0@sha256:10ceb4f456bbd4768a3f0ab425d9b4d40cb0e17992083b881b37fe5d91b58aba,3050
 
 # Override default flag values for local packages and extra-deps
 # flags: {}
