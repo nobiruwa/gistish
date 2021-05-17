@@ -10,7 +10,7 @@ import writer
 
 import sys
 
-def main(input_path, root, output_path):
+def main(input_path, output_path, root=None):
     r = reader.IntelliJXmlReader()
     dependencies = r.from_file(input_path)
 
@@ -26,17 +26,25 @@ def main(input_path, root, output_path):
     ]
 
     graph = transformer.networkx.to_digraph(transformed, transformer.path.path_to_fqdn)
-    descendants = transformer.networkx.descendants(graph, root)
-    nodes = [root] + list(descendants)
-    subgraph = transformer.networkx.sub_graph(graph, nodes)
 
-    writer.write_dot(subgraph, output_path, 'graph [rankdir=LR]')
+    if root is None:
+        writer.write_dot(graph, output_path, 'graph [rankdir=LR]')
+    else:
+        descendants = transformer.networkx.descendants(graph, root)
+        nodes = [root] + list(descendants)
+        subgraph = transformer.networkx.sub_graph(graph, nodes)
+
+        writer.write_dot(subgraph, output_path, 'graph [rankdir=LR]')
+
 
 if __name__ == '__main__':
 
     if len(sys.argv) >= 5:
-        # main('samples/two_tree.xml', 'Root2', 'output/two_tree.dot', 'ManyChildrenClass')
+        # main('samples/two_tree.xml', 'output/two_tree.dot', 'Root2', 'ManyChildrenClass')
         main(sys.argv[1], sys.argv[2], sys.argv[3], sys.arg[4])
-    else:
-        # main('samples/two_tree.xml', 'Root2', 'output/two_tree.dot')
+    elif len(sys.argv) >= 4:
+        # main('samples/two_tree.xml', 'output/two_tree.dot', 'Root2')
         main(sys.argv[1], sys.argv[2], sys.argv[3])
+    else:
+        # main('samples/two_tree.xml', 'output/two_tree.dot')
+        main(sys.argv[1], sys.argv[2])
