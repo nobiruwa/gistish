@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui:composition
+  xmlns="http://www.w3.org/1999/xhtml"
+  xmlns:h="http://java.sun.com/jsf/html"
+  xmlns:ui="http://java.sun.com/jsf/facelets"
+  xmlns:f="http://java.sun.com/jsf/core"
+  template="/WEB-INF/templates/default.xhtml"
+  xml:lang="en"
+  lang="en"
+  >
+  <ui:define name="content">
+    <div>
+      <h1>Application Scoped</h1>
+      <p><span>現在の値</span><h:outputText value="#{applicationScopedBean.name}"/></p>
+      <h:form>
+        <h:commandButton value="submit" type="submit" action="#{applicationScopedBean.setRandomName}"/>
+        <h:commandButton value="doNothing" type="submit" action="#{applicationScopedBean.doNothing}" render="@form"/>
+      </h:form>
+    </div>
+    <div>
+      <h1>Session Scoped</h1>
+      <p><span>現在の値</span><h:outputText value="#{sessionScopedBean.name}"/></p>
+      <h:form>
+        <h:commandButton value="submit" type="submit" action="#{sessionScopedBean.setRandomName}"/>
+        <h:commandButton value="doNothing" type="submit" action="#{applicationScopedBean.doNothing}" render="@form"/>
+      </h:form>
+    </div>
+    <div>
+      <h1>View Scoped</h1>
+      <p><span>現在の値</span><h:outputText value="#{viewScopedBean.name}"/></p>
+      <h:form>
+        <h:commandButton value="submit" type="submit" action="#{viewScopedBean.setRandomName}"/>
+        <h:commandButton value="doNothing" type="submit" action="#{viewScopedBean.doNothing}" render="@form"/>
+      </h:form>
+    </div>
+    <div>
+      <h1>Appplication Scoped Logger</h1>
+      <ul>
+        <ui:repeat value="#{applicationScopedBean.logger}" var="log">
+          <li><h:outputText value="#{log}"/></li>
+        </ui:repeat>
+      </ul>
+    </div>
+  </ui:define>
+</ui:composition>
