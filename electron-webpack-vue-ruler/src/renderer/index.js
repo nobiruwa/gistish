@@ -10,7 +10,7 @@ const vueScript = document.createElement('script');
 
 function init() {
   Vue.config.devtools = false;
-  Vue.config.productionTip=false;
+  Vue.config.productionTip = false;
 
   new Vue({
     components: {

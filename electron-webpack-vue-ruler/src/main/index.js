@@ -1,4 +1,4 @@
-/*global process:false */
+/*global __dirname:false, process:false, setImmediate:false */
 'use strict';
 
 import { app, BrowserWindow } from 'electron';
@@ -11,7 +11,7 @@ const isDevelopment = process.env.NODE_ENV !== 'production';
 let mainWindow;
 
 function createMainWindow() {
-  const window = new BrowserWindow();
+  const window = new BrowserWindow({webPreferences: {nodeIntegration: true}});
 
   if (isDevelopment) {
     window.webContents.openDevTools();
@@ -21,12 +21,11 @@ function createMainWindow() {
     window.loadURL(`http://localhost:${process.env.ELECTRON_WEBPACK_WDS_PORT}`);
   }
   else {
-    window.loadURL('http://localhost:3000/dist/renderer/index.html');
-    // window.loadURL(formatUrl({
-    //   pathname: 'http://localhost:3000/dist/renderer/index.html',
-    //   protocol: 'file',
-    //   slashes: true
-    // }))
+    window.loadURL(formatUrl({
+      pathname: path.join(__dirname, 'index.html'),
+      protocol: 'file',
+      slashes: true,
+    }));
   }
 
   window.on('closed', () => {

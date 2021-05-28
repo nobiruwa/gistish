@@ -1,25 +1,20 @@
 {
-  "name": "electron-webpack-vue-ruler",
+  "name": "electron-webpack-quick-start",
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "dev": "electron-webpack dev --no-sandbox",
+    "dev": "electron-webpack dev",
     "compile": "electron-webpack",
     "dist": "yarn compile && electron-builder",
     "dist:dir": "yarn dist --dir -c.compression=store -c.mac.identity=null"
   },
   "dependencies": {
-    "clean-css": "^4.2.3",
-    "css-loader": "^4.3.0",
-    "electron-webpack-vue": "^2.4.0",
-    "source-map-support": "^0.5.19",
-    "vue": "^2.6.12",
-    "yargs-parser": "20.2.0"
+    "source-map-support": "^0.5.16"
   },
   "devDependencies": {
-    "electron": "^10.2.0",
-    "electron-builder": "^22.8.1",
+    "electron": "8.2.0",
+    "electron-builder": "^22.4.1",
     "electron-webpack": "^2.8.2",
-    "webpack": "^4.44.2"
+    "webpack": "~4.42.1"
   }
 }
