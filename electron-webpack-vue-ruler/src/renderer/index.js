@@ -24,13 +24,17 @@ function init() {
       fontSize: 24,
     },
     methods:{
+      handleMainAreaScroll(e) {
+        this.$refs.hRuler.handleScroll(e);
+        this.$refs.vRuler.handleScroll(e);
+      },
     },
     template:`\
 <div class="content">
   <div class="main-area-ruler-cube"></div>
-  <h-ruler :columns="columns" :rows="rows" :font-size="fontSize"></h-ruler>
-  <v-ruler :columns="columns" :rows="rows" :font-size="fontSize"></v-ruler>
-  <main-area :columns="columns" :rows="rows" :font-size="fontSize"></main-area>
+  <h-ruler ref="hRuler" :columns="columns" :rows="rows" :font-size="fontSize"></h-ruler>
+  <v-ruler ref="vRuler" :columns="columns" :rows="rows" :font-size="fontSize"></v-ruler>
+  <main-area :columns="columns" :rows="rows" :font-size="fontSize" @scroll.native="handleMainAreaScroll"></main-area>
 </div>`
   }).$mount('#app');
 }

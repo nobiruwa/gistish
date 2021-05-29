@@ -5,14 +5,6 @@ export default {
       scrollTop: 0,
     };
   },
-  mounted() {
-    const mainArea = this.$el.parentElement.querySelector('.main-area');
-    mainArea.addEventListener('scroll', this.handleScroll);
-  },
-  beforeDestroy() {
-    const mainArea = this.$el.parentElement.querySelector('.main-area');
-    mainArea.removeEventListener('scroll', this.handleScroll);
-  },
   computed: {
     style() {
       return `top: ${-this.scrollTop}px;`;
