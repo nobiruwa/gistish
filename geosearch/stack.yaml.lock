@@ -13,7 +13,7 @@ packages:
     hackage: HDBC-postgresql-2.5.0.0@sha256:10ceb4f456bbd4768a3f0ab425d9b4d40cb0e17992083b881b37fe5d91b58aba,3050
 snapshots:
 - completed:
-    size: 565266
-    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/17/5.yaml
-    sha256: 78e8ebabf11406261abbc95b44f240acf71802630b368888f6d758de7fc3a2f7
-  original: lts-17.5
+    size: 587546
+    url: https://raw.githubusercontent.com/commercialhaskell/stackage-snapshots/master/lts/18/10.yaml
+    sha256: 88b4f81e162ba3adc230a9fcccc4d19ac116377656bab56c7382ca88598b257a
+  original: lts-18.10
