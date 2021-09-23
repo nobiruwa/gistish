@@ -52,7 +52,7 @@ toCsvLine :: String -> String
 toCsvLine line =
   let spaces = takeWhile (== ' ') line
       item = dropWhile (== ' ') line
-      numCommas = (length spaces) `div` 2
+      numCommas = length spaces `div` 2
       commas = replicate numCommas ','
       csvLine = case item of
         [] -> "\"" ++ line ++ "\"" -- 1列目にlineそのまま
