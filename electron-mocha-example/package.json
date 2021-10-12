@@ -42,6 +42,6 @@
     "webpack-cli": "^4.7.0"
   },
   "dependencies": {
-    "electron": "^13.0.1"
+    "electron": "^13.3.0"
   }
 }
