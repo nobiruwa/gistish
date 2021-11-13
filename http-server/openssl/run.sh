@@ -40,27 +40,27 @@ INTERMEDIATECA_SUBJ="/C=${INTERMEDIATECA_SUBJ_C}/ST=${INTERMEDIATECA_SUBJ_ST}/L=
 ## create variables dynamically
 PREFIX=INTERMEDIATECA DIR="${INTERMEDIATECA_DIR}" . ./_00-source-env.sh
 
-if [ -f "${CONFIG}" ]
+if [ ! -f "${CONFIG}" ]
 then
     echo "You should create ${CONFIG}. Use openssl.cnf.sample."
     exit 1
 fi
 
-if [ -f "${INTERMEDIATECA_EXTFILE}" ]
+if [ ! -f "${INTERMEDIATECA_EXTFILE}" ]
 then
     echo "You should create ${INTERMEDIATECA_EXTFILE}. Use san.ext.sample."
     exit 1
 fi
 
 # ROOTCA
-# . ./_01-create-rootca-directory.sh
-# . ./_02-create-rootca.sh
-# . ./_03-create-rootca-csr.sh
-# . ./_04-create-rootca-self-signing-cert.sh
+. ./_01-create-rootca-directory.sh
+. ./_02-create-rootca.sh
+. ./_03-create-rootca-csr.sh
+. ./_04-create-rootca-self-signing-cert.sh
 
 # INTERMEDIATECA
-# . ./_05-create-intermediateca-directory.sh
-# . ./_06-create-intermediateca.sh
-# . ./_07-create-intermediateca-csr.sh
-# . ./_08-create-intermediateca-cert.sh
+. ./_05-create-intermediateca-directory.sh
+. ./_06-create-intermediateca.sh
+. ./_07-create-intermediateca-csr.sh
+. ./_08-create-intermediateca-cert.sh
 . ./_09-create-intermediateca-cert-nopass.sh
