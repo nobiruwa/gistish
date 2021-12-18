@@ -7,3 +7,5 @@ openssl ca \
         -passin pass:$INTERMEDIATECA_PASSWORD \
         -extfile $INTERMEDIATECA_EXTFILE \
         -out $INTERMEDIATECA_CERTIFICATE
+
+cp "${INTERMEDIATECA_CERTIFICATE}" intermediateca.crt

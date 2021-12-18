@@ -7,3 +7,5 @@ openssl x509 \
         -req \
         -signkey $ROOTCA_PRIVATE_KEY \
         -out $ROOTCA_CERTIFICATE
+
+cp "${ROOTCA_CERTIFICATE}" rootca.crt

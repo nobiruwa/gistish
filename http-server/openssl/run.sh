@@ -34,7 +34,7 @@ INTERMEDIATECA_SUBJ_C=JP
 INTERMEDIATECA_SUBJ_ST=Tokyo
 INTERMEDIATECA_SUBJ_L=Kita
 INTERMEDIATECA_SUBJ_O="Private Company"
-INTERMEDIATECA_SUBJ_CN="localhost.com"
+INTERMEDIATECA_SUBJ_CN="letsrei.com"
 INTERMEDIATECA_SUBJ="/C=${INTERMEDIATECA_SUBJ_C}/ST=${INTERMEDIATECA_SUBJ_ST}/L=${INTERMEDIATECA_SUBJ_L}/O=${INTERMEDIATECA_SUBJ_O}/CN=${INTERMEDIATECA_SUBJ_CN}"
 
 ## create variables dynamically
@@ -57,10 +57,12 @@ fi
 . ./_02-create-rootca.sh
 . ./_03-create-rootca-csr.sh
 . ./_04-create-rootca-self-signing-cert.sh
+. ./_05-create-rootca-pfx.sh
 
 # INTERMEDIATECA
-. ./_05-create-intermediateca-directory.sh
-. ./_06-create-intermediateca.sh
-. ./_07-create-intermediateca-csr.sh
-. ./_08-create-intermediateca-cert.sh
-. ./_09-create-intermediateca-cert-nopass.sh
+. ./_06-create-intermediateca-directory.sh
+. ./_07-create-intermediateca.sh
+. ./_08-create-intermediateca-csr.sh
+. ./_09-create-intermediateca-cert.sh
+. ./_10-create-intermediateca-cert-nopass.sh
+. ./_11-create-intermediateca-pfx.sh
