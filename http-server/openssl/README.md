@@ -17,8 +17,9 @@ $ ./run.sh
 
 - ルート証明機関
   - `rootca.crt`をインポートしてください。
-- 中間証明機関
-  - `intermediateca.crt`をインポートしてください。
+  - firefoxであれば以下の手順になります。
+    - `Tools -> Settings`の`Security`タブから
+      `View Certificates...`を開き、`Authorities`タブの`Import...`からインポートしてください。
 
 ## http-server-exeのHTTPS暗号化
 
