@@ -26,3 +26,7 @@ $ ./run.sh
 ```console
 $ sudo `which http-server-exe` -c intermediateca/cacert.pem -k intermediateca/private/cakey-nopass.pem -p 443
 ```
+
+## 名前解決
+
+`hosts`ファイルかDNSサーバーにレコードを追加してください。
