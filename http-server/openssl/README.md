@@ -1,13 +1,16 @@
 # http-server-exe/openssl
 
-## 実行
+## 準備
 
 ```console
+$ cp run.sh.sample run.sh
 $ cp openssl.cnf.sample openssl.cnf
 $ cp san.ext.sample san.ext
 ```
 
-`san.ext`をドメイン名に合わせて書き換えてください。
+`run.sh`と`san.ext`をドメイン名に合わせて書き換えてください。
+
+## 実行
 
 ```
 $ ./run.sh
