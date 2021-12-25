@@ -33,6 +33,7 @@ crl               = $dir/crl/rootca.${CHANGE_HERE_DOMAIN_NAME}.crl.pem
 ```
 
 ```bash
+$ cat sample/openssl_csr_san.cnf
 [...snip...]
 sample/openssl_csr_san.cnf:DNS.1        = ${CHANGE_HERE_DOMAIN_NAME}
 sample/openssl_csr_san.cnf:DNS.2        = *.${CHANGE_HERE_DOMAIN_NAME}
@@ -139,7 +140,7 @@ $ sqlite3 `<Firefoxのプロファイルディレクトリ>/cert9.db`
 sqlite> .headers ON
 sqlite> SELECT * FROM nssPublic LIMIT 1;
 // 認証局の名前が含まれる列を特定してください(以下はa3だった場合)
-sqlite> DELTEE FROM nssPublic WHERE a3 LIKE '%Private CA for%';
+sqlite> DELETE FROM nssPublic WHERE a3 LIKE '%Private CA for%';
 ```
 
 ## 参考
