@@ -1,5 +1,6 @@
 rootca/
 intermediateca/
 
-openssl.cnf
-san.ext
+./create.sh
+./*.cnf
+./password.txt
