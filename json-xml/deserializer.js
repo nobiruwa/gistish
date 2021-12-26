@@ -1,4 +1,4 @@
-const DOMParser = require('xmldom').DOMParser;
+const DOMParser = require('@xmldom/xmldom').DOMParser;
 
 const sample = `<?xml version="1.0" encoding="UTF-8"?>
 <root xmlns="foo" xmlns:b="bar">
@@ -40,7 +40,7 @@ function deserialize(doc) {
     obj.declaration = doc.childNodes[0].data;
   }
 
-  deserializeTailCall(doc.documentElement, obj.root);
+  foldDeserialize(doc.documentElement, obj.root);
 
   return obj;
 }
@@ -63,9 +63,9 @@ function foldDeserialize(element, acc) {
       // 複数持ちうるか
       if (MULTIPLES.includes(nodeName)) {
         acc[nodeName] = acc[nodeName] || [];
-        acc[nodeName].push(deserializeTailCall(child, {}));
+        acc[nodeName].push(foldDeserialize(child, {}));
       } else {
-        acc[nodeName] = deserializeTailCall(child, {});
+        acc[nodeName] = foldDeserialize(child, {});
       }
     });
     return acc;
