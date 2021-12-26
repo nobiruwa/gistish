@@ -1,6 +1,9 @@
 /*global require:false */
 const cluster = require('cluster');
 
+// 使い方
+// node main.js
+
 if (cluster.isMaster) {
   const request = require('request');
   const worker = cluster.fork();
