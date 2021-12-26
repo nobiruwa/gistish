@@ -1,7 +1,7 @@
 /*global require:false */
 var ank = require("../ank"),
     t = require("mocha"),
-    assert = require("power-assert");
+    assert = require("assert");
 
 t.describe("ank", function() {
   t.it("length=-1", function() {
