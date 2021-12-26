@@ -1,4 +1,11 @@
-/*global require:false */
+/*global Buffer:false, require:false */
+
+// 使い方
+// 1. geckodriverをPATHに置く
+//    - <https://github.com/mozilla/geckodriver/releases>から最新の実行ファイルを取得すること
+// 2. HTTPサーバーでルートディレクトリを公開する
+//    - <http://localhost:5000/public/index.html>にアクセスできること
+// 3. `node test.js`を実行する
 
 const assert = require('assert');
 const webdriver = require('selenium-webdriver');
@@ -8,7 +15,7 @@ const driver = new webdriver.Builder().forBrowser('firefox').build();
 const expected = require('fs').readFileSync('public/answer.txt', 'utf-8').replace('\n', '');
 
 const atob = function(base64) {
-  return decodeURIComponent(Buffer(base64, 'base64').toString('ascii'));
+  return decodeURIComponent(Buffer.from(base64, 'base64').toString('ascii'));
 };
 
 driver.get('http://localhost:5000/public/index.html').then(function() {
