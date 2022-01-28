@@ -1,0 +1,96 @@
+<AppLockerPolicy Version="1">
+  <RuleCollection Type="Appx" EnforcementMode="Enabled">
+    <FilePublisherRule Id="a9e18c21-ff8f-43cf-b9fc-db40eed693ba" Name="(既定の規則) 署名されたすべてのパッケージ アプリ" Description="Everyone グループのメンバーに対し、署名されたパッケージ アプリの実行を許可します。" UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePublisherCondition PublisherName="*" ProductName="*" BinaryName="*">
+          <BinaryVersionRange LowSection="0.0.0.0" HighSection="*" />
+        </FilePublisherCondition>
+      </Conditions>
+    </FilePublisherRule>
+  </RuleCollection>
+  <RuleCollection Type="Dll" EnforcementMode="NotConfigured">
+    <FilePathRule Id="bac4b0bf-6f1b-40e8-8627-8545fa89c8b6" Name="(既定の規則) Microsoft Windows DLL" Description="Everyone グループのメンバーに、Windows フォルダーにある DLL の読み込みを許可します。" UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePathCondition Path="%WINDIR%\*" />
+      </Conditions>
+    </FilePathRule>
+    <FilePathRule Id="3737732c-99b7-41d4-9037-9cddfb0de0d0" Name="(既定の規則) Program Files フォルダーにあるすべての DLL" Description="Everyone グループのメンバーに対し、Program Files フォルダーにある DLL の読み込みを許可します。" UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePathCondition Path="%PROGRAMFILES%\*" />
+      </Conditions>
+    </FilePathRule>
+    <FilePathRule Id="fe64f59f-6fca-45e5-a731-0f6715327c38" Name="(既定の規則) すべての DLL" Description="ローカルの Administrators グループのメンバーに対し、すべての DLL の読み込みを許可します。" UserOrGroupSid="S-1-5-32-544" Action="Allow">
+      <Conditions>
+        <FilePathCondition Path="*" />
+      </Conditions>
+    </FilePathRule>
+    <FilePathRule Id="29d20dc5-e442-4c39-a07c-f6f186255e39" Name="*" Description="" UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePathCondition Path="*" />
+      </Conditions>
+    </FilePathRule>
+  </RuleCollection>
+  <RuleCollection Type="Exe" EnforcementMode="Enabled">
+    <FilePathRule Id="74d39caa-e459-432e-81f2-5cf58255f30f" Name="C:\CompanyApps\検証スクリプト\applocker\禁止アプリサンプル\*" Description="" UserOrGroupSid="S-1-1-0" Action="Deny">
+      <Conditions>
+        <FilePathCondition Path="C:\CompanyApps\検証スクリプト\applocker\禁止アプリサンプル\*" />
+      </Conditions>
+    </FilePathRule>
+    <FilePathRule Id="921cc481-6e17-4653-8f75-050b80acca20" Name="(既定の規則) Program Files フォルダー内にあるすべてのファイル" Description="Everyone グループのメンバーに、Program Files フォルダー内にあるアプリケーションの実行を許可します。" UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePathCondition Path="%PROGRAMFILES%\*" />
+      </Conditions>
+    </FilePathRule>
+    <FilePathRule Id="a61c8b2c-a319-4cd0-9690-d2177cad7b51" Name="(既定の規則) Windows フォルダー内にあるすべてのファイル" Description="Everyone グループのメンバーに、Windows フォルダー内にあるアプリケーションの実行を許可します。" UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePathCondition Path="%WINDIR%\*" />
+      </Conditions>
+    </FilePathRule>
+    <FilePathRule Id="e04f74b5-2003-4653-9413-1c6ce64a61d2" Name="%OSDRIVE%\CompanyApps\検証スクリプト\applocker\禁止アプリサンプル\setup-x86_64.exe" Description="" UserOrGroupSid="S-1-1-0" Action="Deny">
+      <Conditions>
+        <FilePathCondition Path="%OSDRIVE%\CompanyApps\検証スクリプト\applocker\禁止アプリサンプル\setup-x86_64.exe" />
+      </Conditions>
+    </FilePathRule>
+    <FilePathRule Id="fd686d83-a829-4351-8ff4-27c7de5755d2" Name="(既定の規則) すべてのファイル" Description="ローカルの Administrators グループのメンバーに、すべてのアプリケーションの実行を許可します。" UserOrGroupSid="S-1-5-32-544" Action="Allow">
+      <Conditions>
+        <FilePathCondition Path="*" />
+      </Conditions>
+    </FilePathRule>
+  </RuleCollection>
+  <RuleCollection Type="Msi" EnforcementMode="Enabled">
+    <FilePublisherRule Id="b7af7102-efde-4369-8a89-7a6a392d1473" Name="(既定の規則) デジタル署名されたすべての Windows インストーラー ファイル" Description="Everyone グループのメンバーに、デジタル署名された Windows インストーラーの実行を許可します。" UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePublisherCondition PublisherName="*" ProductName="*" BinaryName="*">
+          <BinaryVersionRange LowSection="0.0.0.0" HighSection="*" />
+        </FilePublisherCondition>
+      </Conditions>
+    </FilePublisherRule>
+    <FilePathRule Id="5b290184-345a-4453-b184-45305f6d9a54" Name="(既定の規則) %systemdrive%\Windows\Installer 内にあるすべての Windows インストーラー ファイル" Description="Everyone グループのメンバーに、%systemdrive%\Windows\Installer 内にあるすべての Windows インストーラーの実行を許可します。" UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePathCondition Path="%WINDIR%\Installer\*" />
+      </Conditions>
+    </FilePathRule>
+    <FilePathRule Id="64ad46ff-0d71-4fa0-a30b-3f3d30c5433d" Name="(既定の規則) すべての Windows インストーラー ファイル" Description="ローカルの Administrators グループのメンバーに対し、すべての Windows インストーラー ファイルの実行を許可します。" UserOrGroupSid="S-1-5-32-544" Action="Allow">
+      <Conditions>
+        <FilePathCondition Path="*.*" />
+      </Conditions>
+    </FilePathRule>
+  </RuleCollection>
+  <RuleCollection Type="Script" EnforcementMode="Enabled">
+    <FilePathRule Id="06dce67b-934c-454f-a263-2515c8796a5d" Name="(既定の規則) Program Files フォルダーにあるすべてのスクリプト" Description="Everyone グループのメンバーに対し、Program Files フォルダーにあるスクリプトの実行を許可します。" UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePathCondition Path="%PROGRAMFILES%\*" />
+      </Conditions>
+    </FilePathRule>
+    <FilePathRule Id="9428c672-5fc3-47f4-808a-a0011f36dd2c" Name="(既定の規則) Windows フォルダーにあるすべてのスクリプト" Description="Everyone グループのメンバーに対し、Windows フォルダーにあるスクリプトの実行を許可します。" UserOrGroupSid="S-1-1-0" Action="Allow">
+      <Conditions>
+        <FilePathCondition Path="%WINDIR%\*" />
+      </Conditions>
+    </FilePathRule>
+    <FilePathRule Id="ed97d0cb-15ff-430f-b82c-8d7832957725" Name="(既定の規則) すべてのスクリプト" Description="ローカルの Administrators グループのメンバーに対し、すべてのスクリプトの実行を許可します。" UserOrGroupSid="S-1-5-32-544" Action="Allow">
+      <Conditions>
+        <FilePathCondition Path="*" />
+      </Conditions>
+    </FilePathRule>
+  </RuleCollection>
+</AppLockerPolicy>

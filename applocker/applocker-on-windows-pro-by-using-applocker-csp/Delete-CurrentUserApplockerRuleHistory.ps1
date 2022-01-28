@@ -1,0 +1,1 @@
+Get-ChildItem -Path 'HKCU:\SOFTWARE\Microsoft\Windows\CurrentVersion\Group Policy Objects\*\Software\Policies\Microsoft\Windows\SrpV2' | Remove-Item -Recurse
