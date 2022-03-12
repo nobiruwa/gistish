@@ -1,5 +1,8 @@
 {-# LANGUAGE OverloadedStrings #-}
+{-# LANGUAGE TemplateHaskell #-}
 module Main where
+
+import Embedded (embeddedFavicon)
 
 import Control.Monad (when)
 import Data.Maybe (isJust)
@@ -10,6 +13,8 @@ import Network.Wai.Middleware.Cors (simpleCors)
 import System.Console.GetOpt (ArgDescr(..), ArgOrder(..), OptDescr(..), getOpt, usageInfo)
 import System.Environment (getArgs)
 import System.Exit (exitSuccess)
+import WaiAppStatic.Storage.Embedded (mkSettings)
+import WaiAppStatic.Types (File(..), LookupResult(..), Pieces)
 
 -- 引数のデータ構造
 data Options = Options
@@ -70,8 +75,8 @@ printOptions opts = do
 settings :: Port -> Settings
 settings port = setPort port defaultSettings
 
-staticSettings :: FilePath -> StaticSettings
-staticSettings filePath =
+fileServerSettings :: FilePath -> StaticSettings
+fileServerSettings filePath =
   let sSettings = defaultFileServerSettings filePath
   in sSettings { ssIndices = []
                , ssRedirectToIndex = True
@@ -95,22 +100,42 @@ tlsOptions :: Options -> Maybe (FilePath, FilePath)
 tlsOptions (Options _ _ _ (Just cert) (Just key) _) = Just (cert, key)
 tlsOptions _ = Nothing
 
+{-| 2つのStaticSettingsによるlookupを実行します。
+firstがFileまたはFolderを返す場合にはそれを返し処理を終了します。
+LRNotFoundを返す場合にはsecondのlookupの実行結果を返します。
+-}
+lookup' :: StaticSettings -> StaticSettings -> Pieces -> IO LookupResult
+lookup' first second pieces = do
+  print pieces
+  firstResult <- ssLookupFile first pieces
+  case firstResult of
+    LRNotFound -> ssLookupFile second pieces
+    _ -> return firstResult
+
 main :: IO ()
 main = do
   (o, n) <- getArgs >>= compilerOpts
   -- non-optionsの引数を--directoryオプションよりも優先する
-  let opts = if length n > 0
+  let opts = if not (null n)
         then o { optDirectory = head n }
         else o
   when (optHelp opts) $ do
     putStrLn (usageInfo "http-server-exe [OPTIONS] [DIRECTORY]" options)
     exitSuccess
-  let s = settings $ optPort opts
-  let ss = staticSettings $ optDirectory opts
+  -- 静的コンテンツ用のapplicationを作成する
+  -- fs = file server settings
+  -- es = embedded settings
+  -- ss = static server settings (fs + es)
+  let fs = fileServerSettings $ optDirectory opts
+  let es = $(mkSettings embeddedFavicon)
+  -- ファイルシステムにあるファイルを探し、次に埋め込まれたデータを探す
+  let ss = fs { ssLookupFile = lookup' fs es }
   let application = if optCors opts
         then simpleCors $ staticApp ss
         else staticApp ss
   printOptions opts
+  -- WAI serverを起動する
+  let s = settings $ optPort opts
   case tlsOptions opts of
     Nothing -> runSettings s application
     Just (cert, key) -> do
