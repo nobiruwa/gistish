@@ -36,6 +36,8 @@ JWT認証のフィルターを通過するためのトークンは、画面を�
 
 ### 新規作成
 
+Vue CLIによって`vue-spring-example-view`プロジェクトを再作成する必要があります。
+
 ```console
 $ npm i @vue/cli
 $ npx vue create vue-spring-example-view
