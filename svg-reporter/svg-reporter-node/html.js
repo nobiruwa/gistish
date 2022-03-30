@@ -1,9 +1,9 @@
 /* global module:false, require:false */
 const assert = require('assert');
-const uuid = require('uuid');
+const { v4: uuidv4 } = require('uuid');
 const path = require('path');
 const fs = require('fs');
-const xmldom = require('xmldom');
+const xmldom = require('@xmldom/xmldom');
 const Mustache = require('mustache');
 
 const dom = xmldom.DOMParser;
@@ -32,7 +32,7 @@ function create(infra, serverConfig, request) {
   assert(request.templateName);
   assert(request.data);
 
-  const key = request.key || uuid();
+  const key = request.key || uuidv4();
   const { templateName, data } = request;
   const { outputDirectory,
           templateDirectory,

@@ -9,14 +9,13 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "body-parser": "^1.19.0",
+    "@xmldom/xmldom": "^0.8.1",
+    "body-parser": "^1.19.2",
     "cors": "^2.8.5",
-    "express": "^4.17.1",
-    "mustache": "^3.0.3",
-    "power-assert": "^1.6.1",
-    "puppeteer": "^1.19.0",
-    "uuid": "^3.3.2",
-    "xmldom": "^0.1.27",
-    "xpath": "0.0.27"
+    "express": "^4.17.3",
+    "mustache": "^4.2.0",
+    "puppeteer": "^13.5.1",
+    "uuid": "^8.3.2",
+    "xpath": "^0.0.32"
   }
 }

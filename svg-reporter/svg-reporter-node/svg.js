@@ -4,7 +4,7 @@ const uuid = require('uuid');
 const path = require('path');
 const fs = require('fs');
 const xpath = require('xpath');
-const xmldom = require('xmldom');
+const xmldom = require('@xmldom/xmldom');
 
 const dom = xmldom.DOMParser;
 const serializer = xmldom.XMLSerializer;
