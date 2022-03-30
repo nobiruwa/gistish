@@ -9,19 +9,21 @@ import MainArea from './main-area.js';
 const vueScript = document.createElement('script');
 
 function init() {
-  Vue.config.devtools = false;
-  Vue.config.productionTip = false;
+  // Vue.config.devtools = false;
+  // Vue.config.productionTip = false;
 
-  new Vue({
+  const app = Vue.createApp({
     components: {
       HRuler,
       VRuler,
       MainArea,
     },
-    data: {
-      columns: 60,
-      rows: 30,
-      fontSize: 24,
+    data() {
+      return {
+        columns: 60,
+        rows: 30,
+        fontSize: 24,
+      };
     },
     methods:{
       handleMainAreaScroll(e) {
@@ -36,7 +38,8 @@ function init() {
   <v-ruler ref="vRuler" :columns="columns" :rows="rows" :font-size="fontSize"></v-ruler>
   <main-area :columns="columns" :rows="rows" :font-size="fontSize" @scroll.native="handleMainAreaScroll"></main-area>
 </div>`
-  }).$mount('#app');
+  });
+  app.mount('#app');
 }
 
 vueScript.setAttribute('type','text/javascript');
