@@ -1,8 +1,5 @@
 import axios from 'axios';
-import Vue from 'vue';
-import Vuex from 'vuex';
-
-Vue.use(Vuex);
+import { createStore } from 'vuex';
 
 const state = {
   login: {
@@ -82,9 +79,12 @@ const actions = {
   },
   async fetchSecureGreeting({ commit, state }) {
     return isAuthenticated(state)
-      .then(_ => secureAjax({ state }, 'http://localhost:8080/api/secure-greeting', {
-        method: 'POST',
-      }))
+      .then(
+        // eslint-disable-next-line no-unused-vars
+        _ => secureAjax({ state }, 'http://localhost:8080/api/secure-greeting', {
+          method: 'POST',
+        })
+      )
       .then(response => {
         commit('updateGreeting', response.data);
       }, error => {
@@ -114,12 +114,13 @@ const actions = {
       },
     );
   }, // end of login
+  // eslint-disable-next-line no-unused-vars
   async authenticated({ commit, state }) {
     return isAuthenticated(state);
   },
 };
 
-export default new Vuex.Store({
+export default createStore({
   state,
   getters,
   mutations,

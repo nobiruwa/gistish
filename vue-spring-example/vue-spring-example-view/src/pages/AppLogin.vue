@@ -21,7 +21,7 @@ import router from '@/router';
 import { mapActions, mapGetters } from 'vuex';
 
 export default {
-  name: 'login',
+  name: 'AppLogin',
   data() {
     return {
       username: '',

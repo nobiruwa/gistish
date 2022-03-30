@@ -7,14 +7,14 @@
 </template>
 
 <script>
-import Footer from '@/components/Footer';
-import Header from '@/components/Header';
+import AppFooter from '@/components/AppFooter';
+import AppHeader from '@/components/AppHeader';
 
 export default {
   name: 'App',
   components: {
-    'app-header': Header,
-    'app-footer': Footer,
+    'app-header': AppHeader,
+    'app-footer': AppFooter,
   },
   data: () => ({
     //
