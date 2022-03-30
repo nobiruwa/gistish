@@ -1,43 +1,9 @@
 # vuetify-example
 
-## Project setup
+```console
+$ npm i @vue/cli
+$ echo 'node_modules' > .gitignore
+$ npx vue create vuetify-example
+$ cd vuetify-example
+$ npx vue add vuetify
 ```
-npm install
-```
-
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
-
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Run your tests
-```
-npm run test
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Run your end-to-end tests
-```
-npm run test:e2e
-```
-
-### Run your unit tests
-```
-npm run test:unit
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
-
-## Download Google Fonts
-
-Use <https://google-webfonts-helper.herokuapp.com/fonts>.
