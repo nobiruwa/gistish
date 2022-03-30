@@ -1,6 +1,6 @@
 /*global module:false, require:false */
 
-const xmldom = require("xmldom");
+const xmldom = require("@xmldom/xmldom");
 const dom = xmldom.DOMParser;
 const xpath = require("xpath");
 
