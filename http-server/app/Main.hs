@@ -5,6 +5,7 @@ module Main where
 import           Embedded                       ( embeddedFavicon )
 
 import           Control.Monad                  ( when )
+import           Data.List                      ( foldl' )
 import           Data.Maybe                     ( isJust )
 import           Network.Wai.Application.Static ( StaticSettings(..)
                                                 , defaultFileServerSettings
@@ -87,7 +88,7 @@ options =
 
 compilerOpts :: [String] -> IO (Options, [String])
 compilerOpts args = case getOpt RequireOrder options args of
-  (o, n, []  ) -> return (foldl (flip id) defaultOptions o, n)
+  (o, n, []  ) -> return (foldl' (flip id) defaultOptions o, n)
   (_, _, errs) -> ioError (userError (concat errs))
 
 printOptions :: Options -> IO ()

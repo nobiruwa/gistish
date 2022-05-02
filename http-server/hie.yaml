@@ -1,0 +1,9 @@
+# 参考:
+# https://github.com/haskell/haskell-language-server#project-configuration
+# https://github.com/mpickering/hie-bios/blob/master/README.md#stack
+# This configuration suffices if your whole project can be loaded by
+# the command stack repl. As a rule of thumb, this works if the
+# project consists of only one executable, one library and one
+# test-suite.
+cradle:
+  stack:
