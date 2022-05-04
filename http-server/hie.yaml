@@ -1,9 +1,14 @@
+# 何をターゲットとするかは以下のコマンドで確認する
+# $ stack ide targets
 # 参考:
 # https://github.com/haskell/haskell-language-server#project-configuration
-# https://github.com/mpickering/hie-bios/blob/master/README.md#stack
-# This configuration suffices if your whole project can be loaded by
-# the command stack repl. As a rule of thumb, this works if the
-# project consists of only one executable, one library and one
-# test-suite.
+# https://github.com/mpickering/hie-bios/blob/master/README.md
+# 以下はhaskell-language-server自身のソースコードでの設定例
 cradle:
   stack:
+    - path: "./src"
+      component: "http-server:lib"
+    - path: "./app/Main.hs"
+      component: "http-server:exe:http-server-exe"
+    - path: "./test/Spec.hs"
+      component: "http-server:test:http-server-test"
