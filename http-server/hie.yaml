@@ -1,14 +1,13 @@
-# 何をターゲットとするかは以下のコマンドで確認する
-# $ stack ide targets
-# 参考:
-# https://github.com/haskell/haskell-language-server#project-configuration
-# https://github.com/mpickering/hie-bios/blob/master/README.md
-# 以下はhaskell-language-server自身のソースコードでの設定例
 cradle:
   stack:
     - path: "./src"
       component: "http-server:lib"
+
     - path: "./app/Main.hs"
       component: "http-server:exe:http-server-exe"
-    - path: "./test/Spec.hs"
+
+    - path: "./app/Paths_http_server.hs"
+      component: "http-server:exe:http-server-exe"
+
+    - path: "./test"
       component: "http-server:test:http-server-test"
