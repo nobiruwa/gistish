@@ -11,7 +11,7 @@ import Data.Set (Set)
 import qualified Data.Set as Set
 import Data.Text (Text)
 import Prelude hiding (readFile)
-import Text.Mustache (automaticCompile, Template)
+import Text.Mustache (compileMustacheFile, Template)
 import Text.XML (readFile)
 import Text.XML.Cursor (fromDocument, attribute, parent, ($|), element, ($//), Cursor)
 
@@ -32,9 +32,7 @@ getDependencies cursor =
 readDependencies :: FilePath -> IO (Set Dependency)
 readDependencies file = getDependencies <$> openFile file
 
-applyTemplate :: [FilePath] -> FilePath -> (Template -> Text) -> IO Text
-applyTemplate searchSpace templateName action = do
-  compiled <- automaticCompile searchSpace templateName
-  case compiled of
-    Left err -> error (show err)
-    Right template -> return (action template)
+applyTemplate :: FilePath -> (Template -> Text) -> IO Text
+applyTemplate templateName action = do
+  template <- compileMustacheFile templateName
+  return (action template)

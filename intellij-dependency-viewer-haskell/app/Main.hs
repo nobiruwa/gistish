@@ -21,5 +21,5 @@ main = do
   let g = makeGraph (T.pack rootFilePath) dependencies
   let ds = Set.filter (not . testRegex ".*jbr.*") $ Set.map onlyJarName (toDependencies g)
   -- let ds = Set.map (\d -> replaceRegex ".*/([a-zA-Z0-9_]+\\.(java|class))" d "\\1") $ Set.filter (not . testRegex ".*jbr.*") $ (toDependencies g)
-  text <- applyTemplate ["templates"] "dependency.dot" (`apply` ds)
+  text <- applyTemplate "templates/dependency.dot" (`apply` ds)
   T.putStrLn text

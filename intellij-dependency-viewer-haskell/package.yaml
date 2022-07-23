@@ -24,7 +24,7 @@ dependencies:
 - aeson
 - containers
 - data-default-class
-- mustache
+- stache
 - regex-base
 - regex-compat
 - regex-posix
