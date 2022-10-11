@@ -9,7 +9,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@xmldom/xmldom": "^0.8.1",
+    "@xmldom/xmldom": "^0.8.3",
     "xpath": "0.0.27"
   },
   "devDependencies": {
