@@ -1,0 +1,4 @@
+function-arrows: leading
+comma-style: leading
+import-export-style: leading
+record-brace-space: true
