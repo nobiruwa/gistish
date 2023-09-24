@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title></title>
+  </head>
+  <body>
+    <div>user</div>
+    <div>
+      <input id="username" type="text" value="">
+    </div>
+    <div>
+      <button id="submit">Submit</button>
+    </div>
+    <div id="response-status"></div>
+    <div id="response-body"></div>
+    <script>
+     window.addEventListener('load', function() {
+       const usernameElement = document.getElementById('username');
+       const submitElement = document.getElementById('submit');
+       const responseStatusElement = document.getElementById('response-status');
+       const responseBodyElement = document.getElementById('response-body');
+
+       submitElement.addEventListener('click', function() {
+         fetch('/authenticate', {
+           method: 'POST',
+           headers: {
+             'Content-Type': 'application/json',
+           },
+           body: JSON.stringify({
+             username: usernameElement.value
+           }),
+         }).then(res => res.text().then(data => {
+           responseStatusElement.innerHTML = res.status;
+           responseBodyElement.innerHTML = data;
+         }), err => console.error(err));
+       });
+     });
+    </script>
+  </body>
+</html>
