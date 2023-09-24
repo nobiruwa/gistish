@@ -1,0 +1,9 @@
+https://github.com/karatelabs/karate
+https://qiita.com/takanorig/items/05f424ebf0aa8eed9344
+https://github.com/mozilla/geckodriver/releases
+https://karatelabs.github.io/karate/karate-core/#driver
+
+file:///home/ein/repo/nobiruwa.github/gistish.git/karate-example/build/reports/tests/test/classes/karate.example.AppTest.html
+file:///home/ein/repo/nobiruwa.github/gistish.git/karate-example/build/karate-reports/karate.example.e2e.html
+
+
