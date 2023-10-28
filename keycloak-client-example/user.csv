@@ -1,2 +1,2 @@
-base_url,realm,realm-management:username,realm-management:password,realm-management:client-id,username,password,first_name,last_name,email,groups,attributes:birthday,attributes:deleted,attributes:type,attributes:notice
-http://localhost:18080,test,realm-master,realm-master,admin-cli,testuser01,testuser01,太郎01,テスト,testuser01@example.org,/first/first-first:/first/first-second,19801231,false,3,false
+base_url,realm,realm-management:username,realm-management:password,realm-management:client-id,username,password,first_name,last_name,email,groups,attributes:birthday,attributes:deleted,attributes:type,attributes:notice,roles
+http://localhost:18080,test,realm-master,realm-master,admin-cli,testuser01,testuser01,太郎01,テスト,testuser01@example.org,/first/first-first:/first/first-second,19801231,false,3,false,tanto:yakuseki

@@ -6,7 +6,7 @@ import json
 
 def authenticate(
         base_url='http://localhost:18080',
-        base_path='/auth/realms/{0}/protocol/openid-connect/token',
+        base_path='/realms/{0}/protocol/openid-connect/token',
         realm='test',
         grant_type='password',
         client_id='admin-cli',

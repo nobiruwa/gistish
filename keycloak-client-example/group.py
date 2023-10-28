@@ -9,7 +9,7 @@ import authenticate
 def get_group_by_name(
         access_token='',
         base_url='http://localhost:18080',
-        base_path='/auth/admin/realms/{0}/groups',
+        base_path='/admin/realms/{0}/groups',
         realm='test',
         groupname='',
 ):
@@ -78,7 +78,7 @@ def create_subgroup(
 def create_group(
         access_token='',
         base_url='http://localhost:18080',
-        base_path='/auth/admin/realms/{0}/groups',
+        base_path='/admin/realms/{0}/groups',
         realm='test',
         new_group={},
 ):
@@ -109,7 +109,7 @@ def create_group(
                     create_subgroup(
                         access_token,
                         base_url,
-                        base_path='/auth/admin/realms/{0}/groups/{1}/children',
+                        base_path='/admin/realms/{0}/groups/{1}/children',
                         realm=realm,
                         parent_id=parent_id,
                         new_group=sub_group,
