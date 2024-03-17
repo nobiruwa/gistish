@@ -20,7 +20,7 @@
   "devDependencies": {
     "chai": "^4.2.0",
     "chai-as-promised": "^7.1.1",
-    "electron": "^18.0.0",
+    "electron": "^22.3.25",
     "mocha": "^9.2.2",
     "spectron": "^19.0.0"
   }
