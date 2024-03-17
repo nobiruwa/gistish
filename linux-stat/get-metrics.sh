@@ -1,22 +1,30 @@
 #!/usr/bin/env bash
 
+SCRIPT_DIR=$(realpath $(dirname $0))
 TIME=$(date '+%Y%m%d_%H%M%S')
-
 DESTINATION_DIR="/tmp/stat/${TIME}"
+PROCS_PATH="${DESTINATION_DIR}/procs.txt"
+TOP_XDG_CONFIG_HOME="/tmp/stat/config"
+TOP_COLUMNS=128
+PS_COLUMNS=128
 
 mkdir -p "${DESTINATION_DIR}"
 cp "/proc/stat" "${DESTINATION_DIR}"
 
 ss -antlp > "${DESTINATION_DIR}/ports.txt"
 
-XDG_CONFIG_HOME_ORIG="${XDG_CONFIG_HOME}"
-XDG_CONFIG_HOME="/tmp/stat/config"
 mkdir -p "${XDG_CONFIG_HOME}/procps"
 cp ./_toprc "${XDG_CONFIG_HOME}/procps/toprc"
 
-COLUMNS=128 XDG_CONFIG_HOME="/tmp/stat/config" top -b -n 1 > "${DESTINATION_DIR}/top.txt"
-COLUMNS=128 ps uax > "${DESTINATION_DIR}/ps.txt"
 
-XDG_CONFIG_HOME="${XDG_CONFIG_HOME_ORIG}"
+COLUMNS=${TOP_COLUMNS} XDG_CONFIG_HOME="${TOP_XDG_CONFIG_HOME}" top -b -n 1 > "${DESTINATION_DIR}/top.txt"
+COLUMNS=${PS_COLUMNS} ps uax > "${DESTINATION_DIR}/ps.txt"
 
-./_get-metrics-per-process.sh "${TIME}"
+source ${SCRIPT_DIR}/_source.sh
+echo "${SERVICES[@]}"
+
+for service in "${SERVICES[@]}"; do
+    ${SCRIPT_DIR}/_get-metrics-per-process.sh "${DESTINATION_DIR}" "${PROCS_PATH}" "${service}"
+done
+
+
