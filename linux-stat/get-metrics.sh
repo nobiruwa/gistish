@@ -13,12 +13,12 @@ cp "/proc/stat" "${DESTINATION_DIR}"
 
 ss -antlp > "${DESTINATION_DIR}/ports.txt"
 
-mkdir -p "${XDG_CONFIG_HOME}/procps"
-cp ./_toprc "${XDG_CONFIG_HOME}/procps/toprc"
+mkdir -p "${TOP_XDG_CONFIG_HOME}/procps"
+cp ./_toprc "${TOP_XDG_CONFIG_HOME}/procps/toprc"
 
 
 COLUMNS=${TOP_COLUMNS} XDG_CONFIG_HOME="${TOP_XDG_CONFIG_HOME}" top -b -n 1 > "${DESTINATION_DIR}/top.txt"
-COLUMNS=${PS_COLUMNS} ps uax > "${DESTINATION_DIR}/ps.txt"
+COLUMNS=${PS_COLUMNS} ps -e -o 'user,pid,pcpu,pmem,vsz,rss,tty,stat,lstart,time,command' --date-format '%Y-%m-%dT%H:%M:%S' > "${DESTINATION_DIR}/ps.txt"
 
 source ${SCRIPT_DIR}/_source.sh
 echo "${SERVICES[@]}"
