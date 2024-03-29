@@ -1,0 +1,14 @@
+{
+  "name": "selenium-usage",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": ""
+  },
+  "author": "",
+  "license": "MIT",
+  "devDependencies": {
+    "selenium-webdriver": "latest"
+  }
+}
