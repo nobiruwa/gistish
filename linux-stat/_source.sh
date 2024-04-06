@@ -2,4 +2,4 @@
 
 declare -a SERVICES
 
-SERVICES=("cron" "ssh")
+SERVICES=("cron.service" "ssh.service" "inetd.service")

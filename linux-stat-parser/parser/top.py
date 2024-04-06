@@ -1,11 +1,11 @@
 import csv
 import re
 
-re_first_line = re.compile(r'top +- +([0-9:]+) +up +([^ ]+), +([^ ]+) +user, +load average: +(.+)')
-re_second_line = re.compile(r'Tasks: +([0-9]+) +total, +([0-9]+) +running, +([0-9]+) +sleeping, +([0-9]+) +stopped, +([0-9]+) +zombie')
-re_third_line = re.compile(r'%Cpu\(s\): +([0-9\.]+) +([a-z]+), +([0-9\.]+) +sy, +([0-9\.]+) +ni, +([0-9\.]+) +id, +([0-9\.]+) +wa, +([0-9\.]+) +hi, +([0-9\.]+) +si, +([0-9\.]+) +st *')
-re_forth_line = re.compile(r'MiB +Mem +: +([0-9\.]+) +total, +([0-9\.]+) +free, +([0-9\.]+) +used, +([0-9\.]+) +buff/cache *')
-re_fifth_line = re.compile(r'MiB +Swap: +([0-9\.]+) +total, +([0-9\.]+) +free, +([0-9\.]+) +used. +([0-9\.]+) +avail +Mem +')
+re_first_line = re.compile(r'top *- *([0-9:]+) *up *([^ ]+), *([^ ]+) *users?, *load average: *(.+)')
+re_second_line = re.compile(r'Tasks: *([0-9]+) *total, *([0-9]+) *running, *([0-9]+) *sleeping, *([0-9]+) *stopped, *([0-9]+) *zombie')
+re_third_line = re.compile(r'%Cpu\(s\): *([0-9\.]+) *([a-z]+), *([0-9\.]+) *sy, *([0-9\.]+) *ni, *([0-9\.]+) *id, *([0-9\.]+) *wa, *([0-9\.]+) *hi, *([0-9\.]+) *si, *([0-9\.]+) *st *')
+re_forth_line = re.compile(r'MiB *Mem *: *([0-9\.]+) *total, *([0-9\.]+) *free, *([0-9\.]+) *used, *([0-9\.]+) *buff/cache *')
+re_fifth_line = re.compile(r'MiB *Swap: *([0-9\.]+) *total, *([0-9\.]+) *free, *([0-9\.]+) *used. *([0-9\.]+) *avail *Mem *')
 
 re_spaces = re.compile(r' +')
 
@@ -80,7 +80,7 @@ def proc_parse(lines):
     next(reader)
 
     result = [line for line in reader]
-    print(result)
+
     return result
 
 def proc_stat(parsed_lines):
@@ -88,7 +88,5 @@ def proc_stat(parsed_lines):
 
     for line in parsed_lines:
         stat[line['PID']] = line
-
-    print(len(parsed_lines))
 
     return stat

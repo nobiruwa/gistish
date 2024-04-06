@@ -18,7 +18,6 @@ def proc_stat(parsed_lines):
     stat = {}
 
     for line in parsed_lines:
-        print(line)
         stat[line['pid']] = line['service_name']
 
     return stat

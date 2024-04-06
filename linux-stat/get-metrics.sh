@@ -26,5 +26,3 @@ echo "${SERVICES[@]}"
 for service in "${SERVICES[@]}"; do
     ${SCRIPT_DIR}/_get-metrics-per-process.sh "${DESTINATION_DIR}" "${PROCS_PATH}" "${service}"
 done
-
-
