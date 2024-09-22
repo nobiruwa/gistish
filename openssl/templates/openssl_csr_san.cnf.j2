@@ -4,11 +4,11 @@ distinguished_name = req_distinguished_name
 req_extensions     = req_ext
 
 [ req_distinguished_name ]
-countryName                = {{ csr_country_name }}
-stateOrProvinceName        = {{ csr_state_or_province_name }}
-localityName               = {{ csr_locality_name }}
-organizationName           = {{ csr_organization_name }}
-commonName                 = {{ csr_common_name }}
+countryName                = {{ country_name }}
+stateOrProvinceName        = {{ state_or_province_name }}
+localityName               = {{ locality_name }}
+organizationName           = {{ organization_name }}
+commonName                 = {{ common_name }}
 
 # Optionally, specify some defaults.
 #countryName_default             = [2 letter country code]
