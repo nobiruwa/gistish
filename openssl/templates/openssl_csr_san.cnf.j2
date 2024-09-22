@@ -1,0 +1,27 @@
+[ req ]
+default_bits       = 2048
+distinguished_name = req_distinguished_name
+req_extensions     = req_ext
+
+[ req_distinguished_name ]
+countryName                = {{ csr_country_name }}
+stateOrProvinceName        = {{ csr_state_or_province_name }}
+localityName               = {{ csr_locality_name }}
+organizationName           = {{ csr_organization_name }}
+commonName                 = {{ csr_common_name }}
+
+# Optionally, specify some defaults.
+#countryName_default             = [2 letter country code]
+#stateOrProvinceName_default     = [State or Province]
+#localityName_default            = [City or Town]
+#0.organizationName_default      = [Organization]
+#organizationalUnitName_default  = [Fully Qualified Domain Name]
+#emailAddress_default            = [your email address]
+
+[ req_ext ]
+subjectAltName = @alt_names
+
+[alt_names]
+DNS.1	= {{ domain_name }}
+DNS.2	= *.{{ domain_name }}
+DNS.3	= localhost

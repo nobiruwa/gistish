@@ -1,0 +1,18 @@
+{
+  "domain_name": "example.org",
+  "country_name": "JP",
+  "state_or_province_name": "Tokyo",
+  "locality_name": "Chiyoda",
+  "organization_name": "example.org",
+  "organizational_unit_name": "example section",
+  "common_name": "example.org",
+  "email_address": "admin@example.org",
+  "rootca_password": "changeit",
+  "rootca_country_name": "JP",
+  "rootca_state_or_province_name": "Tokyo",
+  "rootca_locality_name": "Chiyoda",
+  "intermediateca_password": "changeit",
+  "intermediateca_country_name": "JP",
+  "intermediateca_state_or_province_name": "Tokyo",
+  "intermediateca_locality_name": "Chiyoda"
+}

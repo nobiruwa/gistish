@@ -1,4 +1,4 @@
-# http-server/openssl
+# openssl/openssl_old
 
 ルート認証局、中間認証局、サーバー証明書を作成します。
 
