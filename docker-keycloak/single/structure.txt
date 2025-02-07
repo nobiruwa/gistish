@@ -1,0 +1,33 @@
+# Group
+
+- f41c8bb-c281-48a7-b530-dfe49a2f6197
+  - 557057f9-d559-4930-9bdd-5239d4ed5ad9
+
+# Role
+
+- ffbf3c15-a7b0-4a9a-9fd9-c592cf1dfc6a/details
+
+# User
+
+- cc975e2d-53bd-4728-b2e7-0e990be2de8f
+  - joins
+    - 557057f9-d559-4930-9bdd-5239d4ed5ad9
+  - role
+    - ffbf3c15-a7b0-4a9a-9fd9-c592cf1dfc6a
+
+# Import
+
+```
+$ docker exec -it <CONTAINER_ID> bash
+$ /opt/keycloak/kc.sh export --dir /tmp/testrealm --users different_files --users-per-file 100
+$ exit
+$ docker cp <CONTAINER_ID>:/tmp/testrealm .
+```
+
+# Export
+
+```
+$ docker cp testrealm <CONTAINER_ID>:/tmp
+$ docker exec -it <CONTAINER_ID> bash
+$ /opt/keycloak/bin/kc.sh import --dir /tmp/testrealm
+```

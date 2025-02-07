@@ -1,0 +1,41 @@
+services:
+  postgres:
+    image: postgres:15
+    environment:
+      POSTGRES_DB: keycloak
+      POSTGRES_USER: keycloak
+      POSTGRES_PASSWORD: password
+    ports:
+      - "5432:5432"
+  keycloak_primary:
+    image: quay.io/keycloak/keycloak:21.1
+    command: start
+    environment:
+      KC_DB: postgres
+      KC_DB_URL_HOST: postgres
+      KC_DB_USERNAME: keycloak
+      KC_DB_PASSWORD: password
+      KC_HTTP_ENABLED: 'true'
+      KC_HTTPS_ENABLED: 'false'
+      KC_HOSTNAME_STRICT: 'false'
+      KEYCLOAK_ADMIN: admin
+      KEYCLOAK_ADMIN_PASSWORD: admin
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+  keycloak_secondary:
+    image: quay.io/keycloak/keycloak:21.1
+    command: start
+    environment:
+      KC_DB: postgres
+      KC_DB_URL_HOST: postgres
+      KC_DB_USERNAME: keycloak
+      KC_DB_PASSWORD: password
+      KC_HTTP_ENABLED: 'true'
+      KC_HTTPS_ENABLED: 'false'
+      KC_HOSTNAME_STRICT: 'false'
+    ports:
+      - "8081:8080"
+    depends_on:
+      - postgres

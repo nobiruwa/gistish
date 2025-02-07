@@ -1,0 +1,2 @@
+base_url,realm,realm-management:username,realm-management:password,realm-management:client-id
+http://localhost:18080,master,admin,admin,admin-cli

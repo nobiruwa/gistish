@@ -1,0 +1,27 @@
+{
+  "realm" : "testrealm",
+  "users" : [ {
+    "id" : "cc975e2d-53bd-4728-b2e7-0e990be2de8f",
+    "createdTimestamp" : 1702077827685,
+    "username" : "testuser",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : true,
+    "firstName" : "test",
+    "lastName" : "user",
+    "email" : "testuser@email.com",
+    "credentials" : [ {
+      "id" : "819a2fe6-fa95-4de5-9bde-312415ce47fd",
+      "type" : "password",
+      "userLabel" : "My password",
+      "createdDate" : 1702077848090,
+      "secretData" : "{\"value\":\"pWbpbmeQkRnw+OhUe2txWvMtvQIeJYtwcdIORmq1c3Y=\",\"salt\":\"sRaRmpnGksJlAhUn0rY0gA==\",\"additionalParameters\":{}}",
+      "credentialData" : "{\"hashIterations\":27500,\"algorithm\":\"pbkdf2-sha256\",\"additionalParameters\":{}}"
+    } ],
+    "disableableCredentialTypes" : [ ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "default-roles-testrealm", "tanto" ],
+    "notBefore" : 0,
+    "groups" : [ "/店舗001/経理" ]
+  } ]
+}
