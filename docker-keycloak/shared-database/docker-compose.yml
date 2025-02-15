@@ -9,7 +9,7 @@ services:
       - "5432:5432"
   keycloak_primary:
     image: quay.io/keycloak/keycloak:21.1
-    command: start
+    command: start --cache=ispn
     environment:
       KC_DB: postgres
       KC_DB_URL_HOST: postgres
@@ -18,6 +18,7 @@ services:
       KC_HTTP_ENABLED: 'true'
       KC_HTTPS_ENABLED: 'false'
       KC_HOSTNAME_STRICT: 'false'
+      KC_LOG_LEVEL: 'INFO,org.keycloak:DEBUG,org.keycloak.connections:DEBUG,org.keycloak.connections.infinispan:DEBUG,org.infinispan:DEBUG'
       KEYCLOAK_ADMIN: admin
       KEYCLOAK_ADMIN_PASSWORD: admin
     ports:
@@ -26,7 +27,7 @@ services:
       - postgres
   keycloak_secondary:
     image: quay.io/keycloak/keycloak:21.1
-    command: start
+    command: start --cache=ispn
     environment:
       KC_DB: postgres
       KC_DB_URL_HOST: postgres
@@ -35,6 +36,7 @@ services:
       KC_HTTP_ENABLED: 'true'
       KC_HTTPS_ENABLED: 'false'
       KC_HOSTNAME_STRICT: 'false'
+      KC_LOG_LEVEL: 'INFO,org.keycloak:DEBUG,org.keycloak.connections:DEBUG,org.keycloak.connections.infinispan:DEBUG,org.infinispan:DEBUG'
     ports:
       - "8081:8080"
     depends_on:
