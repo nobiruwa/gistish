@@ -17,7 +17,7 @@ plugins {
 repositories {
     // Use jcenter for resolving dependencies.
     // You can declare any Maven/Ivy/file repository here.
-    jcenter()
+    mavenCentral()
 }
 
 dependencies {
@@ -26,4 +26,10 @@ dependencies {
 
 sourceSets {
     main.java.srcDirs += 'src/main/webapp'
+}
+
+tasks.withType(JavaCompile).configureEach {
+    options.compilerArgs += "-Xlint:unchecked"
+    options.compilerArgs += "--add-exports"
+    options.compilerArgs += "java.security.jgss/sun.security.krb5=ALL-UNNAMED"
 }
