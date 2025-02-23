@@ -1,6 +1,6 @@
 package com.example.geosearch.model;
 
-import javax.persistence.AttributeConverter;
+import jakarta.persistence.AttributeConverter;
 
 import com.example.geosearch.model.Point;
 

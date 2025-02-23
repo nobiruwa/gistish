@@ -9,4 +9,5 @@ build
 .settings
 bin
 
+libs/barcode.jar.zip
 libs/Pao.BarCode.JDK.1.8.jar

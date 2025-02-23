@@ -8,18 +8,8 @@ package karate.example;
 import com.intuit.karate.junit5.Karate;
 
 class AppTest {
-    // @Karate.Test
-    // Karate testUdcHttp() {
-    //     return Karate.run().karateEnv("udc").tags("@http").relativeTo(getClass());
-    // }
-
     @Karate.Test
     Karate testUdcE2E() {
         return Karate.run("e2e").karateEnv("udc").tags("@e2e").relativeTo(getClass());
     }
-
-    // @Karate.Test
-    // Karate testOcvDebugE2E() {
-    //     return Karate.run().karateEnv("ocv-debug").tags("@e2e").relativeTo(getClass());
-    // }
 }
