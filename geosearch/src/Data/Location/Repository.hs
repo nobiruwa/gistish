@@ -7,7 +7,7 @@ import Data.Attoparsec.ByteString.Char8 (Parser, double, inClass, many', parseOn
 import Data.ByteString (ByteString, pack, unpack)
 import Data.Either (fromRight)
 import Data.Maybe (listToMaybe)
-import Data.Text.Lazy (Text)
+import Data.Text (Text)
 import Database.HDBC (run, SqlValue, execute, fetchAllRows, fromSql, prepare, toSql)
 import Database.HDBC.PostgreSQL (Connection)
 import Text.Printf (printf)
