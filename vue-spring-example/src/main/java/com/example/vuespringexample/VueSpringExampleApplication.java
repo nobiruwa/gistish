@@ -7,7 +7,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-@ComponentScan({ "com.example.vuespringexample", "com.example.vuespringexample.service" })
+@ComponentScan(basePackages = { "com.example.vuespringexample", "com.example.vuespringexample.service" })
 @SpringBootApplication
 public class VueSpringExampleApplication {
 

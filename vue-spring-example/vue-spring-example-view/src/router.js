@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory } from 'vue-router';
 
-import AppDashboard from '@/pages/AppDashboard';
-import AppLogin from '@/pages/AppLogin';
-import AppLogout from '@/pages/AppLogout';
+import AppDashboard from '@/pages/AppDashboard.vue';
+import AppLogin from '@/pages/AppLogin.vue';
+import AppLogout from '@/pages/AppLogout.vue';
 import store from '@/store';
 
 const router = createRouter({

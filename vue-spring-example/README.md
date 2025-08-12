@@ -30,7 +30,7 @@ JWT認証のフィルターを通過するためのトークンは、画面を�
 
 `com.example.vuespringexample.SecurityConfig#configure(AuthenticationManagerBuilder auth)`メソッドで以下の1ユーザーを登録しています。
 
-- `username`/`password`
+- `user`/`password`
 
 ## vue-spring-example-view
 
