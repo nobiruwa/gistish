@@ -14,7 +14,7 @@
     "cors": "^2.8.5",
     "express": "^4.19.2",
     "mustache": "^4.2.0",
-    "puppeteer": "^13.5.1",
+    "puppeteer": "^24.16.1",
     "uuid": "^8.3.2",
     "xpath": "^0.0.32"
   }
