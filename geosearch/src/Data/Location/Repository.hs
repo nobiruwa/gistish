@@ -8,7 +8,7 @@ import Data.ByteString (ByteString, pack, unpack)
 import Data.Either (fromRight)
 import Data.Maybe (listToMaybe)
 import Data.Text (Text)
-import Database.HDBC (run, SqlValue, execute, fetchAllRows, fromSql, prepare, toSql)
+import Database.HDBC (run, SqlValue, execute, fetchAllRows', fromSql, prepare, toSql)
 import Database.HDBC.PostgreSQL (Connection)
 import Text.Printf (printf)
 
@@ -24,25 +24,25 @@ findById :: Connection -> Text -> IO (Maybe Location)
 findById conn id_ = do
   statement <- prepare conn "SELECT prefecture_name, city_name, town_name, ST_AsText(geometric) FROM location WHERE id = ?"
   execute statement [ toSql id_ ]
-  listToMaybe . map toLocationFromList <$> fetchAllRows statement
+  listToMaybe . map toLocationFromList <$> fetchAllRows' statement
 
 findByPrefectureName :: Connection -> Text -> IO [Location]
 findByPrefectureName conn prefectureName = do
   statement <- prepare conn "SELECT prefecture_name, city_name, town_name, ST_AsText(geometric) FROM location WHERE prefecture_name = ?"
   execute statement [ toSql prefectureName ]
-  map toLocationFromList <$> fetchAllRows statement
+  map toLocationFromList <$> fetchAllRows' statement
 
 findByPrefectureNameAndCityName :: Connection -> Text -> Text -> IO [Location]
 findByPrefectureNameAndCityName conn prefectureName cityName = do
   statement <- prepare conn "SELECT prefecture_name, city_name, town_name, ST_AsText(geometric) FROM location WHERE prefecture_name = ? AND city_name = ?"
   execute statement [ toSql prefectureName, toSql cityName ]
-  map toLocationFromList <$> fetchAllRows statement
+  map toLocationFromList <$> fetchAllRows' statement
 
 findByPrefectureNameAndCityNameAndTownNameContaining :: Connection -> Text -> Text -> Text -> IO [Location]
 findByPrefectureNameAndCityNameAndTownNameContaining conn prefectureName cityName townName = do
   statement <- prepare conn "SELECT prefecture_name, city_name, town_name, ST_AsText(geometric) FROM location WHERE prefecture_name = ? AND city_name = ? AND town_name LIKE ?"
   execute statement [ toSql prefectureName, toSql cityName, toSql (mconcat ["%", townName, "%"]) ]
-  map toLocationFromList <$> fetchAllRows statement
+  map toLocationFromList <$> fetchAllRows' statement
 
 findWithinAndLimit :: Connection -> Geometric -> Double -> Integer -> IO [(Location, Double)]
 findWithinAndLimit conn (Geometric lon lat) within limit = do
@@ -52,7 +52,7 @@ findWithinAndLimit conn (Geometric lon lat) within limit = do
                     , toSql point
                     , toSql within
                     ]
-  map toLocationWithDistanceFromList <$> fetchAllRows statement
+  map toLocationWithDistanceFromList <$> fetchAllRows' statement
 
 toLocationWithDistanceFromList :: [SqlValue] -> (Location, Double)
 toLocationWithDistanceFromList [p, c, t, g, d] = (toLocation p c t g, fromSql d :: Double)
