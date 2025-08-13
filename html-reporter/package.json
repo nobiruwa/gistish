@@ -14,7 +14,7 @@
     "express": "^4.17.2",
     "jsdom": "^19.0.0",
     "mustache": "^4.2.0",
-    "puppeteer": "^13.0.1",
+    "puppeteer": "^24.16.1",
     "uuid": "^8.3.2"
   }
 }
