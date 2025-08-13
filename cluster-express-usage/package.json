@@ -10,7 +10,6 @@
   "license": "MIT",
   "devDependencies": {
     "axios": "^1.11.0",
-    "express": "^5.1.0",
-    "request": "^2.88.2"
+    "express": "^5.1.0"
   }
 }
