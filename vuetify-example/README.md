@@ -1,9 +1,24 @@
 # vuetify-example
 
-```console
-$ npm i @vue/cli
-$ echo 'node_modules' > .gitignore
-$ npx vue create vuetify-example
-$ cd vuetify-example
-$ npx vue add vuetify
+## Project setup
 ```
+npm install
+```
+
+### Compiles and hot-reloads for development
+```
+npm run serve
+```
+
+### Compiles and minifies for production
+```
+npm run build
+```
+
+### Lints and fixes files
+```
+npm run lint
+```
+
+### Customize configuration
+See [Configuration Reference](https://cli.vuejs.org/config/).
