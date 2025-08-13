@@ -4,9 +4,8 @@
   "description": "",
   "main": "publisher.js",
   "dependencies": {
-    "atmosphere.js": "^3.1.0"
+    "atmosphere.js": "^4.0.1"
   },
-  "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
