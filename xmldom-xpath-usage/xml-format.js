@@ -25,7 +25,7 @@ const xpath = require("xpath");
  *
  */
 const canonicalizeXML = function(xmlString) {
-  const doc = new dom().parseFromString(xmlString);
+  const doc = new dom().parseFromString(xmlString, 'text/xml');
   var textNodes = xpath.select("//text()", doc);
   Array.prototype.forEach.call(textNodes, function(text) {
     if (/[^ \r\n]/.test(text)) {
