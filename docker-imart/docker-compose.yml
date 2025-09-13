@@ -1,0 +1,31 @@
+services:
+  db:
+    image: intra-mart-postgresql
+    ports:
+      - "5432:5432"
+    volumes:
+      - intra-mart-postgresql-volume-data:/var/lib/postgresql/17/main
+    networks:
+      - intra-mart-network
+
+  resin:
+    image: intra-mart-resin
+    ports:
+      - "5200:5200"
+      - "5701:5701"
+      - "6800:6800"
+      - "8080:8080"
+      - "8443:8443"
+      - "9009:9009"
+      - "40608:40608"
+    network:
+      - intra-mart-network
+    depends_on:
+      - db
+
+networks:
+  intra-mart-network:
+
+volumes:
+  intra-mart-postgresql-volume-data:
+    external: true

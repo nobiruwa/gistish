@@ -3,7 +3,7 @@ FROM debian:latest
 EXPOSE 22
 
 # apt
-RUN apt update -y && apt install -y curl iproute2 locales mlocate openssh-server openssh-client perl ssh tar unzip vim wget
+RUN apt update -y && apt install -y curl iproute2 locales plocate openssh-server openssh-client perl ssh tar unzip vim wget
 
 # locale
 RUN sed -i '/ja_JP.UTF-8/s/^# //g' /etc/locale.gen && \
