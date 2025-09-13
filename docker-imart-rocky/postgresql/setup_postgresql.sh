@@ -15,12 +15,10 @@ sleep 5
 
 su postgres -c "psql -c \"ALTER USER postgres WITH PASSWORD 'postgres'\""
 su postgres -c "psql -c \"CREATE ROLE imart WITH LOGIN PASSWORD 'imart'\""
-su postgres -c "psql -c \"CREATE DATABASE imart OWNER=imart encoding 'utf8' TEMPLATE template0\""
-su postgres -c "psql -c \"CREATE DATABASE iap_db OWNER=imart encoding 'utf8' TEMPLATE template0\""
-su postgres -c "psql -c \"CREATE DATABASE \\\"default\\\" OWNER=imart encoding 'utf8' TEMPLATE template0\""
-su postgres -c "psql -d imart -c \"CREATE SCHEMA acceldocuments AUTHORIZATION imart\""
-su postgres -c "psql -d iap_db -c \"CREATE SCHEMA acceldocuments AUTHORIZATION imart\""
-su postgres -c "psql -d default -c \"CREATE SCHEMA acceldocuments AUTHORIZATION imart\""
+su postgres -c "psql -c \"CREATE DATABASE imart_system OWNER=imart encoding 'utf8' TEMPLATE template0\""
+su postgres -c "psql -c \"CREATE DATABASE imart_default OWNER=imart encoding 'utf8' TEMPLATE template0\""
+su postgres -c "psql -d imart_system -c \"CREATE SCHEMA acceldocuments AUTHORIZATION imart\""
+su postgres -c "psql -d imart_default -c \"CREATE SCHEMA acceldocuments AUTHORIZATION imart\""
 
 su postgres -c "pg_ctl -D /var/lib/pgsql/data stop"
 
